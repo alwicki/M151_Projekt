@@ -3,3 +3,8 @@
 #logo {
     width: 200px;
 }
+header{
+    background-color: #5EA67A;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
