@@ -10,11 +10,11 @@
         "projectUniqueName": "/home/vmadmin/M151_Projekt/API/API.csproj",
         "projectName": "API",
         "projectPath": "/home/vmadmin/M151_Projekt/API/API.csproj",
-        "packagesPath": "/home/vmadmin/.nuget/packages/",
+        "packagesPath": "/root/.nuget/packages/",
         "outputPath": "/home/vmadmin/M151_Projekt/API/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/vmadmin/.nuget/NuGet/NuGet.Config"
+          "/root/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"

@@ -30,7 +30,7 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DataContext>(options =>{
-                options.UseNpgsql("Host=localhost;Database=m151;Username=admin;Password=secret");
+                options.UseNpgsql("Host=localhost;Database=recipebook;Username=admin;Password=secret");
                 });
             services.AddControllers();
             services.AddSwaggerGen(c =>
