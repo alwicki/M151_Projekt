@@ -13,8 +13,8 @@ namespace API.Controllers
             this.context = context;
         }
 
-        [HttpGet] public ActionResult<string> GetRecipes(){
-        return "Hello, this is the API speaking, there are no recipes";
+        [HttpGet] public ActionResult GetRecipes(){
+        return new JsonResult("Hello, this is the API speaking, there are no recipes");
         }
 
     }
