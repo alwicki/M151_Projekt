@@ -10,7 +10,7 @@ services:
     ports:
       - "5050:80"
     networks:
-      - postgres
+      - recipebook
     volumes:
        - pgadmin-data:/root/.pgadmin
     depends_on:
@@ -22,16 +22,16 @@ services:
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=secret
-      - POSTGRES_DB=m151
+      - POSTGRES_DB=recipebook
     ports:
       - "5432:5432"
     networks:
-      - postgres
+      - recipebook
     volumes:
       - postgres-db:/var/lib/postgresql/data
 
 networks:
-  postgres:
+  recipebook:
     driver: bridge
 
 volumes:
