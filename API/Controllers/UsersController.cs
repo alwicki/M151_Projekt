@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System.Security.Cryptography;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
+using API.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
@@ -16,8 +18,11 @@ namespace API.Controllers
     public class UsersController : ControllerBase
     {
         private readonly DataContext context;
-        public UsersController(DataContext context)
+
+        private readonly ITokenService tokenservice;
+        public UsersController(DataContext context, ITokenService tokenService)
         {
+            this.tokenservice = tokenService;
             this.context = context;
         }
 
@@ -26,13 +31,15 @@ namespace API.Controllers
             return await this.context.Users.ToListAsync();
         }
 
+
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id){
             return await this.context.Users.FindAsync(id);
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<User>> Register(RegisterDto registerDto)
+        public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
             if (await UserExists(registerDto.Username)) return BadRequest("Username already exists");
 
@@ -48,17 +55,35 @@ namespace API.Controllers
             this.context.Users.Add(user);
             await this.context.SaveChangesAsync();
             
-            return user;
+            return new UserDto{
+                Username = user.UserName,
+                UserRole = user.UserRole,
+                Token = this.tokenservice.CreateToken(user)
+            };
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<User>> Login(LoginDto loginDto)
+        public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
             var user = await this.context.Users.SingleOrDefaultAsync(x => x.UserName == loginDto.Username);
             
             if(user == null) return Unauthorized("Invalid username or password");
 
-            //using var hmac = new HMACSHA512();
+            using var hmac = new HMACSHA512(user.PasswordSalt);
+
+            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
+
+            for (int i = 0; i < computedHash.Length; i++)
+            {
+                if (computedHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid username or password");
+            }
+
+         
+            return new UserDto{
+                Username = user.UserName,
+                UserRole = user.UserRole,
+                Token = this.tokenservice.CreateToken(user)
+            };
         }
 
         private async Task<bool> UserExists(string username){

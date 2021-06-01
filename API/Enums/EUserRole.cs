@@ -1,6 +1,6 @@
 namespace API.Enums
 {
-    public enum UserRole
+    public enum EUserRole
     {
         User,
         Moderator

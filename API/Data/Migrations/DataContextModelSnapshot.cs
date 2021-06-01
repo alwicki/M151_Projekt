@@ -16,7 +16,7 @@ namespace API.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
-                .HasAnnotation("ProductVersion", "5.0.5")
+                .HasAnnotation("ProductVersion", "5.0.6")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
             modelBuilder.Entity("API.Entities.Comment", b =>
@@ -172,10 +172,13 @@ namespace API.Data.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("UserName")
-                        .HasColumnType("text");
+                    b.Property<byte[]>("PasswordHash")
+                        .HasColumnType("bytea");
 
-                    b.Property<string>("UserPassword")
+                    b.Property<byte[]>("PasswordSalt")
+                        .HasColumnType("bytea");
+
+                    b.Property<string>("UserName")
                         .HasColumnType("text");
 
                     b.Property<int>("UserRole")
