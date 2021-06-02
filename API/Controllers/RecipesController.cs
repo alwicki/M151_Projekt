@@ -1,6 +1,15 @@
 using API.Data;
+using API.Entities;
+using API.DTOs;
 using Microsoft.AspNetCore.Mvc;
-
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Security.Cryptography;
+using Microsoft.EntityFrameworkCore;
+using System.Text;
+using API.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 namespace API.Controllers
 {
     [ApiController]
@@ -13,8 +22,17 @@ namespace API.Controllers
             this.context = context;
         }
 
-        [HttpGet] public ActionResult GetRecipes(){
-        return new JsonResult("Hello, this is the API speaking, there are no recipes");
+        [HttpGet] public async Task<ActionResult<IEnumerable<Recipe>>> GetRecipes(){
+        return await this.context.Recipes.ToListAsync();
+        }
+
+        [HttpPost("create")]
+        public async Task<ActionResult<Recipe>> CreateRecipe(Recipe recipe)
+        {
+            this.context.Recipes.Add(recipe);
+            await this.context.SaveChangesAsync();
+            
+            return await this.context.Recipes.FirstOrDefaultAsync();
         }
 
     }

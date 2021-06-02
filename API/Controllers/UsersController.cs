@@ -34,8 +34,12 @@ namespace API.Controllers
 
         [Authorize]
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id){
-            return await this.context.Users.FindAsync(id);
+        public async Task<ActionResult<UserDto>> GetUser(int id){
+            User user = await this.context.Users.FindAsync(id);
+            return new UserDto{
+                Username = user.UserName,
+                UserRole = user.UserRole
+            };
         }
 
         [HttpPost("register")]
