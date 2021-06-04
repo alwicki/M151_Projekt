@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class RecipesComponent implements OnInit {
   recipes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   tags = ['vegetarian', 'soup', 'meat', 'lactose free']
+  showFilter = false;
   constructor() { }
 
   ngOnInit(): void {

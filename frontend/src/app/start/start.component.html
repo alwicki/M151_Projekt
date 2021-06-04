@@ -1,1 +1,36 @@
-<p>start works!</p>
+<div *ngIf="login" class="container mt-4">
+    <h1>Login</h1>
+<form class="mb-4" style="max-width: 600px;">
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Username</label>
+      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Password</label>
+      <input type="password" class="form-control" id="exampleInputPassword1">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  <h3 (click)="login=false" style="text-decoration: underline;">No Account? Create yours now!</h3>
+</div>
+
+<div *ngIf="!login" class="container mt-4">
+    <h1>Register</h1>
+<form class="mb-4" style="max-width: 600px;">
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Username</label>
+      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Password</label>
+      <input type="password" class="form-control" id="exampleInputPassword1">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Password repeat</label>
+        <input type="password" class="form-control" id="exampleInputPassword1">
+      </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  <h3 style="text-decoration: underline;" (click)="login=true"> Already have an account? Login now!</h3>
+</div>
+

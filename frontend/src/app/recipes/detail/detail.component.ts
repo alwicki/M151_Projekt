@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./detail.component.css']
 })
 export class DetailComponent implements OnInit {
-
+tags = ["soup", "flour"]
   constructor() { }
 
   ngOnInit(): void {

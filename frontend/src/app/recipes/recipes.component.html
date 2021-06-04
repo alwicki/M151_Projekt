@@ -2,9 +2,15 @@
 
 <div class="container mt-4">
     <div id="filters" class="row">
-    <span></span>
+    <span (click)="showFilter=true"><i class="bi bi-filter-circle" style="font-size: 24px; cursor: pointer; font-style: normal;"> add filter</i></span>
     </div>
-<div *ngFor="let tag of tags" class="badge badge-pill alert-success">{{tag}} test</div>
+    <div class="row p-4" style="max-width: 400px;" *ngIf="showFilter">
+      <input type="text">
+      <button class="btn btn-outline-dark">add</button>
+    </div>
+    <div id="tags" class="mt-4">
+<div *ngFor="let tag of tags" class="badge badge-pill alert-dark">{{tag}} test</div>
+</div>
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-2">
 <div *ngFor="let recipe of recipes" class="col py-lg-2">
   <div class="card">
@@ -12,7 +18,7 @@
     <div class="card-body">
       <h5 class="card-title">Card title</h5>
       <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      <a href="#" class="btn btn-outline-success">Go somewhere</a>
+      <a routerLink="/recipes/detail" class="btn btn-outline-success">watch</a>
     </div>
   </div>
   </div>
