@@ -32,7 +32,12 @@ namespace API.Controllers
             this.context.Recipes.Add(recipe);
             await this.context.SaveChangesAsync();
             
-            return await this.context.Recipes.FirstOrDefaultAsync();
+            return await this.context.Recipes.FindAsync(1);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Recipe>> GetRecipe(int id){
+            return await this.context.Recipes.Include(r => r.Steps).FirstOrDefaultAsync(r => r.Id == id);
         }
 
     }
