@@ -2,11 +2,10 @@ using API.Enums;
 
 namespace API.DTOs
 {
-    public class UserDto
+    public class OpenUserDto
     {
-        public int UserId { get; set; }
+        public string UserId {get; set; }
         public string Username { get; set; }
         public EUserRole UserRole { get; set; }
-        public string Token { get; set; }
     }
 }

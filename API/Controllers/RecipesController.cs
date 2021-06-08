@@ -5,11 +5,14 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.IO;
 using System.Security.Cryptography;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
 using API.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using System;
+
 namespace API.Controllers
 {
     [ApiController]
@@ -22,22 +25,66 @@ namespace API.Controllers
             this.context = context;
         }
 
-        [HttpGet] public async Task<ActionResult<IEnumerable<Recipe>>> GetRecipes(){
-        return await this.context.Recipes.ToListAsync();
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Recipe>>> GetRecipes()
+        {
+            return await this.context.Recipes.ToListAsync();
+        }
+
+        [HttpGet("user/{id}")]
+        public async Task<ActionResult<IEnumerable<Recipe>>> GetUserRecipes(int id)
+        {
+            return await this.context.Recipes.Where(r => r.User.UserId == id).Include(r => r.Tags).ToListAsync();
         }
 
         [HttpPost("create")]
-        public async Task<ActionResult<Recipe>> CreateRecipe(Recipe recipe)
+        public async Task<ActionResult<int>> CreateRecipe(RecipeDto recipeDto)
         {
+            var user = this.context.Users.Find(recipeDto.User.UserId);
+            var recipe = new Recipe
+            {
+                Title = recipeDto.Title,
+                Description = recipeDto.Description,
+                Persons = recipeDto.Persons,
+                Ingredients = recipeDto.Ingredients,
+                Steps = recipeDto.Steps,
+                User = user
+            };
             this.context.Recipes.Add(recipe);
             await this.context.SaveChangesAsync();
-            
-            return await this.context.Recipes.FindAsync(1);
+
+            return recipe.Id;
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Recipe>> GetRecipe(int id){
-            return await this.context.Recipes.Include(r => r.Steps).FirstOrDefaultAsync(r => r.Id == id);
+        public async Task<ActionResult<RecipeDto>> GetRecipe(int id)
+        {
+            //var user = this.context.Recipes.Include(u=>u.User).First(r => r.Id == id).User;
+            
+            var recipe = await this.context.Recipes
+            .Include(r => r.Ingredients)
+            .ThenInclude( r => r.Unit)
+            .Include(r => r.Steps)
+            .Include(r => r.Likes)
+            .Include(r => r.Comments)
+            .Include(r => r.User)
+            .FirstOrDefaultAsync(r => r.Id == id);
+
+            Console.WriteLine(recipe);
+
+            return new RecipeDto(){
+                Title = recipe.Title,
+                Description = recipe.Description,
+                Steps = recipe.Steps,
+                Ingredients = recipe.Ingredients,
+                Likes = recipe.Likes,
+                Comments = recipe.Comments,
+                User = new UserDto(){
+                    UserId = recipe.User.UserId,
+                    Username = recipe.User.UserName,
+                    UserRole = recipe.User.UserRole
+                }
+            };
         }
 
     }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using API.Enums;
+using System.Text.Json.Serialization;
 
 namespace API.Entities
 {
@@ -11,7 +12,8 @@ namespace API.Entities
         public byte[] PasswordSalt {get; set;}
         public EUserRole UserRole {get; set;}
 
-        public List<Recipe> Recipes {get; set;}
+        [JsonIgnore]
+        public ICollection<Recipe> Recipes {get; set;}
 
         public ICollection<Recipe> Favorites {get; set;}
     }
