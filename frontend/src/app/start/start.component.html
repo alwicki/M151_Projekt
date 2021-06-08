@@ -1,35 +1,35 @@
 <div *ngIf="login" class="container mt-4">
     <h1>Login</h1>
-<form class="mb-4" style="max-width: 600px;">
+<form [formGroup]="loginForm" class="mb-4" style="max-width: 600px;">
     <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">Username</label>
-      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+      <input formControlName="username" type="text" class="form-control" id="username" aria-describedby="emailHelp">
     </div>
     <div class="mb-3">
       <label for="exampleInputPassword1" class="form-label">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1">
+      <input formControlName="password" type="password" class="form-control" id="password">
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button (click)="loginUser()" type="submit" class="btn btn-primary">Submit</button>
   </form>
   <h3 (click)="login=false" style="text-decoration: underline;">No Account? Create yours now!</h3>
 </div>
 
 <div *ngIf="!login" class="container mt-4">
     <h1>Register</h1>
-<form class="mb-4" style="max-width: 600px;">
+<form [formGroup]="registerForm" class="mb-4" style="max-width: 600px;">
     <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Username</label>
-      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+      <label for="username" class="form-label">Username</label>
+      <input formControlName="username" type="text" class="form-control" id="username" aria-describedby="emailHelp">
     </div>
     <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1">
+      <label for="password" class="form-label">Password</label>
+      <input formControlName="password" type="password" class="form-control" id="password">
     </div>
     <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Password repeat</label>
-        <input type="password" class="form-control" id="exampleInputPassword1">
+        <label for="passwordRepeat" class="form-label">Password repeat</label>
+        <input formControlName="passwordRepeat" type="password" class="form-control" id="passwordRepeat">
       </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button (click)="registerUser()" type="submit" class="btn btn-primary">Submit</button>
   </form>
   <h3 style="text-decoration: underline;" (click)="login=true"> Already have an account? Login now!</h3>
 </div>
