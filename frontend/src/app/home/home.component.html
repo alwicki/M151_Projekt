@@ -1,5 +1,34 @@
 
 <div class="container mt-4">
+  <div class="row row-cols-1 row-cols-lg-2" id="welcome">
+    <div class="col">
+  <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="../../assets/freshlikesummer.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="../../assets/spiceitup.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="../../assets/dontgetburnt.jpg" class="d-block w-100" alt="...">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>
+<div class="col">
+  <h1 class="display-3">Welcome to recipebooks, the place for the tastiest recipes on the net!</h1>
+</div>
+</div>
+<h1 class="mt-4">Popular recipes</h1>
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-2">
 <div *ngFor="let recipe of recipes" class="col py-lg-2">
   <div class="card">
