@@ -1,0 +1,50 @@
+<div class="container mt-4">
+  <form>
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        name="title"
+        [(ngModel)]="recipe.Title"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea
+        class="form-control"
+        id="description"
+        name="description"
+        [(ngModel)]="recipe.Description"
+        rows="3"
+      ></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="tags" class="form-label">Tags</label>
+      <input
+        [(ngModel)]="selectedTag"
+        class="form-control"
+        list="datalistOptions"
+        id="tags"
+        name="tags"
+        placeholder="Add tag..."
+      />
+      <datalist class="mb" id="datalistOptions">
+        <option *ngFor="let tag of tags" value="{{tag.title}}"></option>
+      </datalist>
+
+      <button (click)="addTag()" class="btn btn-primary mt-2">Add</button>
+      <div id="tags" class="mt-4">
+        <div
+          *ngFor="let tag of recipe.tags"
+          class="badge badge-pill alert-dark"
+        >
+          {{ tag }}
+        </div>
+      </div>
+    </div>
+  </form>
+  <button class="btn btn-outline-primary" (click)="createRecipe()">submit</button>
+</div>

@@ -4,7 +4,7 @@ import { FavoritesComponent } from './favorites/favorites.component';
 import { HomeComponent } from './home/home.component';
 import { ModeratorComponent } from './moderator/moderator.component';
 import { MyRecipesComponent } from './my-recipes/my-recipes.component';
-import { CreateComponent } from './myRecipes/create/create.component';
+import { CreateComponent } from './my-recipes/create/create.component';
 import { DetailComponent } from './recipes/detail/detail.component';
 import { RecipesComponent } from './recipes/recipes.component';
 import { StartComponent } from './start/start.component';

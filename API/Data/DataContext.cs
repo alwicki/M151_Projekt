@@ -13,6 +13,7 @@ namespace API.Data
         public DbSet<Unit> Units {get; set;}
         public DbSet<Comment> Comments {get; set;}
         public DbSet<Like> Likes {get; set;}
+        public DbSet<Tag> Tags {get; set;}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder){
             modelBuilder.Entity<User>()

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
+import { AuthService } from '../auth.service';
+import { User } from '../models/user';
 @Component({
   selector: 'app-start',
   templateUrl: './start.component.html',
@@ -21,16 +23,20 @@ export class StartComponent implements OnInit {
 
   login = true;
 
-  constructor(public api: ApiService, public router: Router) {}
+  constructor(public api: ApiService, public router: Router, public auth: AuthService) {}
 
   ngOnInit(): void {}
 
   loginUser() {
+    var user: User | any;
     console.log(this.loginForm.value);
     this.api.login(this.loginForm.get('username')?.value, this.loginForm.get('password')?.value).subscribe(
-      res => console.log(res),
+      res => {
+        user = res
+        console.log(res)},
       (err)=> console.log('error'),
       ()=>{
+        this.auth.currentUser = user;
         this.router.navigate(['recipes'])
       }
       
@@ -52,7 +58,10 @@ export class StartComponent implements OnInit {
         )
         .subscribe((res) => console.log(res),
         (err)=>{console.log('error')},
-        ()=>this.login=true);
+        ()=>{
+          this.login=true;
+        }
+        )
     }
   }
 }
