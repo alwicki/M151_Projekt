@@ -2,7 +2,7 @@
 
 <div class="container mt-4">
     <div id="filters" class="row">
-    <span (click)="showFilter=true"><i class="bi bi-filter-circle" style="font-size: 24px; cursor: pointer; font-style: normal;"> add filter</i></span>
+    <span (click)="showFilter=true"><i id="filter" class="bi bi-filter-circle" style="font-size: 24px; cursor: pointer; font-style: normal;"> add filter</i></span>
     </div>
     <div class="row p-4" style="max-width: 400px;" *ngIf="showFilter">
       <input type="text">
@@ -18,7 +18,7 @@
     <div class="card-body">
       <h5 class="card-title">Card title</h5>
       <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      <a routerLink="/recipes/detail" class="btn btn-outline-success">watch</a>
+      <a routerLink="/recipes/detail" class="btn btn-outline-dark">watch</a>
     </div>
   </div>
   </div>

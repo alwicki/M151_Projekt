@@ -1,4 +1,4 @@
-<div *ngIf="login" class="container mt-4">
+<div *ngIf="login" class="container formContainer mt-4">
     <h1>Login</h1>
 <form [formGroup]="loginForm" class="mb-4" style="max-width: 600px;">
     <div class="mb-3">
@@ -9,12 +9,12 @@
       <label for="exampleInputPassword1" class="form-label">Password</label>
       <input formControlName="password" type="password" class="form-control" id="password">
     </div>
-    <button (click)="loginUser()" type="submit" class="btn btn-primary">Submit</button>
+    <button (click)="loginUser()" type="submit" class="btn btn-dark">Submit</button>
   </form>
-  <h3 (click)="login=false" style="text-decoration: underline;">No Account? Create yours now!</h3>
+  <h4 (click)="login=false" style="text-decoration: underline; cursor: pointer;">No Account? Create yours now!</h4>
 </div>
 
-<div *ngIf="!login" class="container mt-4">
+<div *ngIf="!login" class="container formContainer mt-4">
     <h1>Register</h1>
 <form [formGroup]="registerForm" class="mb-4" style="max-width: 600px;">
     <div class="mb-3">
@@ -29,8 +29,8 @@
         <label for="passwordRepeat" class="form-label">Password repeat</label>
         <input formControlName="passwordRepeat" type="password" class="form-control" id="passwordRepeat">
       </div>
-    <button (click)="registerUser()" type="submit" class="btn btn-primary">Submit</button>
+    <button (click)="registerUser()" type="submit" class="btn btn-dark">Submit</button>
   </form>
-  <h3 style="text-decoration: underline;" (click)="login=true"> Already have an account? Login now!</h3>
+  <h4 style="text-decoration: underline; cursor: pointer;" (click)="login=true"> Already have an account? Login now!</h4>
 </div>
 

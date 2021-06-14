@@ -3,14 +3,20 @@
 #logo {
     width: 200px;
 }
-header{
-    background-color: #5EA67A;
+.bg-light{
+    background-color: white !important;
+}
+header, nav{
+    background: white !important;
+    border-bottom: 1rem solid #FF8776;
 }
 html, body { height: 100%; }
 body { 
     margin: 0; 
     font-family: 'Roboto', sans-serif;
-    background: #F8FFFA !important;
+    /* background: #F8FFFA !important; */
+    background: repeating-linear-gradient(to top right,rgb(11, 255, 92) 2.6%,rgb(255, 255, 255) 2.8%,rgb(255, 252, 47) 3.3%) !important;
+
 }
 
   h1,h2,h3,h4,h5,h6 {
@@ -26,4 +32,25 @@ body {
 
 .btnCol{
     max-width: 24px;
+}
+
+.card{
+    border: 0.2rem solid black !important;
+    border-radius: 0.5rem !important;
+}
+
+.tableContainer, .formContainer, .recipeContainer, #welcome{
+    background: white;
+    border: 0.2rem solid black !important;
+    border-radius: 0.5rem !important;
+}
+
+.active{
+    background: rgb(255, 252, 47);
+}
+
+.alert-dark{
+    background-color: white !important;
+    border: 0.1rem solid black !important;
+    border-radius: 0.25rem !important;
 }
