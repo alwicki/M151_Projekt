@@ -24,6 +24,16 @@ namespace API.Data
             modelBuilder.Entity<Recipe>()
             .HasOne(r => r.User)
             .WithMany(u => u.Recipes);
+
+            modelBuilder.Entity<Ingredient>()
+            .HasOne(i => i.Unit)
+            .WithMany(u => u.Ingredients);
+
+            modelBuilder
+            .Entity<Recipe>()
+            .HasMany(r => r.Tags)
+            .WithMany(r => r.Recipes)
+            .UsingEntity(j => j.ToTable("RecipeTags"));
         }
     }
 }

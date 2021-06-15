@@ -3,15 +3,17 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210615090941_tagsRecipeRelation")]
+    partial class tagsRecipeRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,7 +23,7 @@ namespace API.Data.Migrations
 
             modelBuilder.Entity("API.Entities.Comment", b =>
                 {
-                    b.Property<int>("CommentId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
@@ -35,7 +37,7 @@ namespace API.Data.Migrations
                     b.Property<int?>("RecipeId")
                         .HasColumnType("integer");
 
-                    b.HasKey("CommentId");
+                    b.HasKey("Id");
 
                     b.HasIndex("RecipeId");
 
@@ -44,7 +46,7 @@ namespace API.Data.Migrations
 
             modelBuilder.Entity("API.Entities.Ingredient", b =>
                 {
-                    b.Property<int>("IngredientId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
@@ -61,7 +63,7 @@ namespace API.Data.Migrations
                     b.Property<int>("UnitId")
                         .HasColumnType("integer");
 
-                    b.HasKey("IngredientId");
+                    b.HasKey("Id");
 
                     b.HasIndex("RecipeId");
 
@@ -72,7 +74,7 @@ namespace API.Data.Migrations
 
             modelBuilder.Entity("API.Entities.Like", b =>
                 {
-                    b.Property<int>("LikeId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
@@ -83,7 +85,7 @@ namespace API.Data.Migrations
                     b.Property<int?>("UserId")
                         .HasColumnType("integer");
 
-                    b.HasKey("LikeId");
+                    b.HasKey("Id");
 
                     b.HasIndex("RecipeId");
 
@@ -94,7 +96,7 @@ namespace API.Data.Migrations
 
             modelBuilder.Entity("API.Entities.Recipe", b =>
                 {
-                    b.Property<int>("RecipeId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
@@ -111,7 +113,7 @@ namespace API.Data.Migrations
                     b.Property<int?>("UserId")
                         .HasColumnType("integer");
 
-                    b.HasKey("RecipeId");
+                    b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
@@ -120,7 +122,7 @@ namespace API.Data.Migrations
 
             modelBuilder.Entity("API.Entities.Step", b =>
                 {
-                    b.Property<int>("StepId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
@@ -128,13 +130,10 @@ namespace API.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<int>("Order")
-                        .HasColumnType("integer");
-
                     b.Property<int?>("RecipeId")
                         .HasColumnType("integer");
 
-                    b.HasKey("StepId");
+                    b.HasKey("Id");
 
                     b.HasIndex("RecipeId");
 
@@ -143,7 +142,7 @@ namespace API.Data.Migrations
 
             modelBuilder.Entity("API.Entities.Tag", b =>
                 {
-                    b.Property<int>("TagId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
@@ -151,14 +150,14 @@ namespace API.Data.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("text");
 
-                    b.HasKey("TagId");
+                    b.HasKey("Id");
 
                     b.ToTable("Tags");
                 });
 
             modelBuilder.Entity("API.Entities.Unit", b =>
                 {
-                    b.Property<int>("UnitId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
@@ -166,7 +165,7 @@ namespace API.Data.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("text");
 
-                    b.HasKey("UnitId");
+                    b.HasKey("Id");
 
                     b.ToTable("Units");
                 });
@@ -197,28 +196,28 @@ namespace API.Data.Migrations
 
             modelBuilder.Entity("RecipeTag", b =>
                 {
-                    b.Property<int>("RecipesRecipeId")
+                    b.Property<int>("RecipesId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("TagsTagId")
+                    b.Property<int>("TagsId")
                         .HasColumnType("integer");
 
-                    b.HasKey("RecipesRecipeId", "TagsTagId");
+                    b.HasKey("RecipesId", "TagsId");
 
-                    b.HasIndex("TagsTagId");
+                    b.HasIndex("TagsId");
 
                     b.ToTable("RecipeTags");
                 });
 
             modelBuilder.Entity("RecipeUser", b =>
                 {
-                    b.Property<int>("FavoritesRecipeId")
+                    b.Property<int>("FavoritesId")
                         .HasColumnType("integer");
 
                     b.Property<int>("UsersUserId")
                         .HasColumnType("integer");
 
-                    b.HasKey("FavoritesRecipeId", "UsersUserId");
+                    b.HasKey("FavoritesId", "UsersUserId");
 
                     b.HasIndex("UsersUserId");
 
@@ -239,7 +238,7 @@ namespace API.Data.Migrations
                         .HasForeignKey("RecipeId");
 
                     b.HasOne("API.Entities.Unit", "Unit")
-                        .WithMany("Ingredients")
+                        .WithMany()
                         .HasForeignKey("UnitId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -280,13 +279,13 @@ namespace API.Data.Migrations
                 {
                     b.HasOne("API.Entities.Recipe", null)
                         .WithMany()
-                        .HasForeignKey("RecipesRecipeId")
+                        .HasForeignKey("RecipesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("API.Entities.Tag", null)
                         .WithMany()
-                        .HasForeignKey("TagsTagId")
+                        .HasForeignKey("TagsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -295,7 +294,7 @@ namespace API.Data.Migrations
                 {
                     b.HasOne("API.Entities.Recipe", null)
                         .WithMany()
-                        .HasForeignKey("FavoritesRecipeId")
+                        .HasForeignKey("FavoritesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -315,11 +314,6 @@ namespace API.Data.Migrations
                     b.Navigation("Likes");
 
                     b.Navigation("Steps");
-                });
-
-            modelBuilder.Entity("API.Entities.Unit", b =>
-                {
-                    b.Navigation("Ingredients");
                 });
 
             modelBuilder.Entity("API.Entities.User", b =>

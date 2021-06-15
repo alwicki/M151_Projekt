@@ -37,6 +37,7 @@ namespace API.Controllers
         public async Task<ActionResult<UserDto>> GetUser(int id){
             User user = await this.context.Users.FindAsync(id);
             return new UserDto{
+                UserId = user.UserId,
                 Username = user.UserName,
                 UserRole = user.UserRole
             };
@@ -84,6 +85,7 @@ namespace API.Controllers
 
          
             return new UserDto{
+                UserId = user.UserId,
                 Username = user.UserName,
                 UserRole = user.UserRole,
                 Token = this.tokenservice.CreateToken(user)

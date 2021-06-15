@@ -17,31 +17,31 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class TagsController : ControllerBase
+    public class UnitsController : ControllerBase
     {
         private readonly DataContext context;
-        public TagsController(DataContext context)
+        public UnitsController(DataContext context)
         {
             this.context = context;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Tag>>> GetRecipes()
+        public async Task<ActionResult<IEnumerable<Unit>>> GetRecipes()
         {
-            return await this.context.Tags.ToListAsync();
+            return await this.context.Units.ToListAsync();
         }
 
         [HttpPost("create")]
-        public async Task<ActionResult<int>> CreateTag(TagDto tagDto)
+        public async Task<ActionResult<int>> CreateUnit(UnitDto unitDto)
         {
-            var tag = new Tag
+            var unit = new Unit
             {
-                Title = tagDto.Title,
+                Title = unitDto.Title,
             };
-            this.context.Tags.Add(tag);
+            this.context.Units.Add(unit);
             await this.context.SaveChangesAsync();
 
-            return tag.TagId;
+            return unit.UnitId;
         }
 
     }

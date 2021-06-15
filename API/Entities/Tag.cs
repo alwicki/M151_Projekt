@@ -5,7 +5,7 @@ namespace API.Entities
 {
     public class Tag
     {
-        public int Id { get; set; }
+        public int TagId { get; set; }
         public string Title { get; set; }
         [JsonIgnore]
         public ICollection<Recipe> Recipes { get; set; }

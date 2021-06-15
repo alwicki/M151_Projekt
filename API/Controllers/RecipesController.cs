@@ -40,20 +40,34 @@ namespace API.Controllers
         [HttpPost("create")]
         public async Task<ActionResult<int>> CreateRecipe(RecipeDto recipeDto)
         {
+            var test = recipeDto;
             var user = this.context.Users.Find(recipeDto.User.UserId);
             var recipe = new Recipe
             {
                 Title = recipeDto.Title,
                 Description = recipeDto.Description,
                 Persons = recipeDto.Persons,
-                Ingredients = recipeDto.Ingredients,
+                Ingredients = new List<Ingredient>(),
                 Steps = recipeDto.Steps,
+                Tags = new List<Tag>(),
                 User = user
             };
+            var tags = recipeDto.Tags;
+            foreach(var tag in tags ){
+                var exTag = this.context.Tags.Single(t=> t.TagId == tag.TagId);
+                recipe.Tags.Add(exTag);
+            }
+            var ingredients = recipeDto.Ingredients;
+            foreach(var ingredient in ingredients){
+                ingredient.Unit = this.context.Units.Single(u => u.UnitId == ingredient.Unit.UnitId);
+            }
+            recipe.Ingredients = ingredients;
+
+
             this.context.Recipes.Add(recipe);
             await this.context.SaveChangesAsync();
 
-            return recipe.Id;
+            return recipe.RecipeId;
         }
 
         [HttpGet("{id}")]
@@ -68,7 +82,8 @@ namespace API.Controllers
             .Include(r => r.Likes)
             .Include(r => r.Comments)
             .Include(r => r.User)
-            .FirstOrDefaultAsync(r => r.Id == id);
+            .Include(r => r.Tags)
+            .FirstOrDefaultAsync(r => r.RecipeId == id);
 
             Console.WriteLine(recipe);
 
@@ -78,6 +93,7 @@ namespace API.Controllers
                 Steps = recipe.Steps,
                 Ingredients = recipe.Ingredients,
                 Likes = recipe.Likes,
+                Tags = recipe.Tags,
                 Comments = recipe.Comments,
                 User = new UserDto(){
                     UserId = recipe.User.UserId,

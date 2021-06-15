@@ -3,15 +3,17 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210615093055_updateEntitiesIds")]
+    partial class updateEntitiesIds
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -128,9 +130,6 @@ namespace API.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<int>("Order")
-                        .HasColumnType("integer");
-
                     b.Property<int?>("RecipeId")
                         .HasColumnType("integer");
 
@@ -239,7 +238,7 @@ namespace API.Data.Migrations
                         .HasForeignKey("RecipeId");
 
                     b.HasOne("API.Entities.Unit", "Unit")
-                        .WithMany("Ingredients")
+                        .WithMany()
                         .HasForeignKey("UnitId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -315,11 +314,6 @@ namespace API.Data.Migrations
                     b.Navigation("Likes");
 
                     b.Navigation("Steps");
-                });
-
-            modelBuilder.Entity("API.Entities.Unit", b =>
-                {
-                    b.Navigation("Ingredients");
                 });
 
             modelBuilder.Entity("API.Entities.User", b =>

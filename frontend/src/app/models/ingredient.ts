@@ -1,7 +1,10 @@
+import { Unit } from "./unit"
+
 export class Ingredient{
     description: string
     amount: number
-    unit: string
+    unitId: number
+    unit: Unit
     constructor(
 
     ){

@@ -1,52 +1,57 @@
-<div class="container mt-4">
+<div class="container formContainer mt-4 p-4">
   <form>
-    <div class="mb-3">
-      <label for="title" class="form-label">Title</label>
+    <div class="mb-4">
+      <label for="title" class="form-label"><h4>Title</h4></label>
       <input
         type="text"
         class="form-control"
         id="title"
         name="title"
-        [(ngModel)]="recipe.Title"
+        [(ngModel)]="recipe.title"
       />
     </div>
-    <div class="mb-3">
-      <label for="description" class="form-label">Description</label>
+    <div class="mb-4">
+      <label for="description" class="form-label"><h4>Description</h4></label>
       <textarea
         class="form-control"
         id="description"
         name="description"
-        [(ngModel)]="recipe.Description"
+        [(ngModel)]="recipe.description"
         rows="3"
       ></textarea>
     </div>
 
-    <div class="mb-3">
-      <label for="tags" class="form-label">Tags</label>
+    <h4>Tags</h4>
+    <div class="mb-4">
+
+      <label for="tags" class="form-label">Name</label>
       <input
         [(ngModel)]="selectedTag"
         class="form-control"
-        list="datalistOptions"
+        list="datalistTags"
         id="tags"
         name="tags"
         placeholder="Add tag..."
       />
-      <datalist class="mb" id="datalistOptions">
+      <datalist class="mb" id="datalistTags">
         <option *ngFor="let tag of tags" value="{{tag.title}}"></option>
       </datalist>
 
-      <button (click)="addTag()" class="btn btn-primary mt-2">Add</button>
+      <button (click)="addTag()" class="btn btn-dark mt-2">Add</button>
       <div id="tags" class="mt-4">
         <div
           *ngFor="let tag of recipe.tags"
           class="badge badge-pill alert-dark"
-          (click)="removeTag(tag.id)"
+          (click)="removeTag(tag.tagId)"
         >
           {{ tag.title }}
         </div>
       </div>
     </div>
-    <div class="mb-3">
+
+    <h4>Ingredients</h4>
+    <div class="row mb-4">
+    <div class="col-12 col-md-2">
       <label for="description" class="form-label">Amount</label>
       <input
         [(ngModel)]="ingredient.amount"
@@ -55,16 +60,22 @@
         name="description"
         placeholder="Amount"
       />
-    <div class="mb-3">
+      </div>
+    <div class="col-12 col-md-4">
       <label for="description" class="form-label">Unit</label>
       <input
-        [(ngModel)]="ingredient.unit"
+        [(ngModel)]="selectedUnit"
         class="form-control"
+        list="datalistUnits"
         id="unit"
         name="unit"
         placeholder="Unit"
       />
-    <div class="mb-3">
+      <datalist class="mb" id="datalistUnits">
+        <option *ngFor="let unit of units" value="{{unit.title}}"></option>
+      </datalist>
+      </div>
+    <div class="col-12 col-md-6">
       <label for="description" class="form-label">Ingredient</label>
       <input
         [(ngModel)]="ingredient.description"
@@ -73,25 +84,72 @@
         name="description"
         placeholder="Ingredient"
       />
-
-      <button (click)="addIngredient()" class="btn btn-primary mt-2">Add</button>
-      <div *ngIf="recipe.ingredients.length > 0" id="ingredient" class="mt-4">
-        <div
-          *ngFor="let ingredient of recipe.ingredients"
-        >
-          {{ ingredient.amount }}
-          {{ ingredient.unit }}
-          {{ ingredient.description }}
-        </div>
       </div>
     </div>
-    </div>
-    </div>
+    <button (click)="addIngredient()" class="btn btn-dark mt-2 mb-4">Add</button>
 
+      <div *ngIf="recipe.ingredients.length > 0" id="ingredient" class="mb-4">
+        <div class="table-responsive">
+          <table class="table">
+              <thead>
+                  <tr>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Unit</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let ingredient of recipe.ingredients">
+                    <th>{{ ingredient.amount }}</th>
+                    <td>{{ ingredient.unit.title }}</td>
+                    <td>{{ ingredient.description }}</td>
+                    <td><i (click)="removeIngredient(ingredient.description)" style="cursor: pointer;" class="bi bi-trash"></i></td>
+                  </tr>
+                </tbody>
+          </table>
+        </div>
+        </div>
+
+        <h4>Steps</h4>
+        <div class="row mb-4">
+          <div class="col">
+            <label for="description" class="form-label">Step</label>
+            <textarea
+        class="form-control"
+        id="description"
+        name="description"
+        [(ngModel)]="step.description"
+        rows="3"
+      ></textarea>
+            </div>
+          </div>
+      
+            <button (click)="addStep()" class="btn btn-dark mt-2">Add</button>
+            <div *ngIf="recipe.steps.length > 0" id="ingredient" class="mt-4">
+              <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                          <th scope="col">Nr</th>
+                          <th scope="col">Description</th>
+                          <th scope="col">Delete</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let step of recipe.steps">
+                          <th>{{ step.order }}</th>
+                          <td>{{ step.description }}</td>
+                          <td><i (click)="removeStep(step.description)" style="cursor: pointer;" class="bi bi-trash"></i></td>
+                        </tr>
+                      </tbody>
+                </table>
+              </div>
+              </div>
 
 
 
 
   </form>
-  <button class="btn btn-outline-primary" (click)="createRecipe()">submit</button>
+  <button class="btn btn-outline-dark mt-4" (click)="createRecipe()">submit</button>
 </div>

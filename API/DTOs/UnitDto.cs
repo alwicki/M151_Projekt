@@ -1,8 +1,8 @@
 namespace API.DTOs
 {
-    public class TagDto
+    public class UnitDto
     {
-        public int TagId { get; set; }
+        public int UnitId { get; set; }
         public string Title { get; set; }
     }
 }

@@ -1,7 +1,7 @@
-export class Tag {
+export class Unit {
 
     constructor(
-      public tagId: number,
+      public unitId: number,
       public title: string,
     ) {  }
   

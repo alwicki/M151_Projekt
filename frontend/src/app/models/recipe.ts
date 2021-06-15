@@ -1,9 +1,9 @@
 export class Recipe {
 
     constructor(
-      public Title: string,
-      public Description: string,
-      public Persons: number,
+      public title: string,
+      public description: string,
+      public persons: number,
       public ingredients: any,
       public steps: any,
       public tags: any,

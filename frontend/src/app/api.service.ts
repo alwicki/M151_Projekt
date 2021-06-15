@@ -21,6 +21,18 @@ export class ApiService {
     return this.http.post<number>('https://localhost:5001/api/tags/create', {'title': title})
   }
 
+  getUnits(){
+    return this.http.get('https://localhost:5001/api/units');
+  }
+
+  createUnit(title: string){
+    return this.http.post<number>('https://localhost:5001/api/units/create', {'title': title})
+  }
+
+  createRecipe(recipe){
+    return this.http.post<number>('https://localhost:5001/api/recipes/create', recipe)
+  }
+
   register(username: string, password: string){
     var headers = new HttpHeaders({
       'Content-Type': 'application/json',

@@ -15,7 +15,8 @@ body {
     margin: 0; 
     font-family: 'Roboto', sans-serif;
     /* background: #F8FFFA !important; */
-    background: repeating-linear-gradient(to top right,rgb(11, 255, 92) 2.6%,rgb(255, 255, 255) 2.8%,rgb(255, 252, 47) 3.3%) !important;
+    /* background: repeating-linear-gradient(to top right,rgb(11, 255, 92) 2.6%,rgb(255, 255, 255) 2.8%,rgb(255, 252, 47) 3.3%) !important; */
+    background: repeating-linear-gradient(to top right,rgb(255, 255, 255) 1.8%,rgb(255, 252, 47) 2.3%) !important;
 
 }
 

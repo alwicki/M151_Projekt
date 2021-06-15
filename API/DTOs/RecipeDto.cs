@@ -11,6 +11,7 @@ namespace API.DTOs
         public List<Ingredient> Ingredients { get; set; }
         public List<Step> Steps {get; set;}
         public List<Comment> Comments { get; set; }
+        public ICollection<Tag> Tags { get; set; } 
         public List<Like> Likes { get; set; } 
         public UserDto User {get; set;}
     }
