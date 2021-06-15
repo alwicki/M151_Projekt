@@ -13,6 +13,10 @@ export class ApiService {
     return this.http.get('https://localhost:5001/api/recipes');
   }
 
+  getToken(){
+    return this.http.get('https://localhost:5001/api/recipes/token');
+  }
+
   getTags(){
     return this.http.get('https://localhost:5001/api/tags');
   }

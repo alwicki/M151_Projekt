@@ -12,6 +12,9 @@ using System.Text;
 using API.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using System;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace API.Controllers
 {
@@ -30,6 +33,21 @@ namespace API.Controllers
         {
             return await this.context.Recipes.ToListAsync();
         }
+
+        [HttpGet("token")]
+        [Authorize]
+        public async Task<ActionResult<string>> GetToken()
+        {
+            var accessToken = await
+            HttpContext.GetTokenAsync("access_token");
+
+            var handler = new JwtSecurityTokenHandler();
+            var token = handler.ReadJwtToken(accessToken);
+            var claims = token.Claims;
+            var userName = claims.First(c => c.Type =="UserName").Value;
+            return userName;
+        }
+
 
         [HttpGet("user/{id}")]
         public async Task<ActionResult<IEnumerable<Recipe>>> GetUserRecipes(int id)
@@ -53,12 +71,14 @@ namespace API.Controllers
                 User = user
             };
             var tags = recipeDto.Tags;
-            foreach(var tag in tags ){
-                var exTag = this.context.Tags.Single(t=> t.TagId == tag.TagId);
+            foreach (var tag in tags)
+            {
+                var exTag = this.context.Tags.Single(t => t.TagId == tag.TagId);
                 recipe.Tags.Add(exTag);
             }
             var ingredients = recipeDto.Ingredients;
-            foreach(var ingredient in ingredients){
+            foreach (var ingredient in ingredients)
+            {
                 ingredient.Unit = this.context.Units.Single(u => u.UnitId == ingredient.Unit.UnitId);
             }
             recipe.Ingredients = ingredients;
@@ -74,10 +94,10 @@ namespace API.Controllers
         public async Task<ActionResult<RecipeDto>> GetRecipe(int id)
         {
             //var user = this.context.Recipes.Include(u=>u.User).First(r => r.Id == id).User;
-            
+
             var recipe = await this.context.Recipes
             .Include(r => r.Ingredients)
-            .ThenInclude( r => r.Unit)
+            .ThenInclude(r => r.Unit)
             .Include(r => r.Steps)
             .Include(r => r.Likes)
             .Include(r => r.Comments)
@@ -87,7 +107,8 @@ namespace API.Controllers
 
             Console.WriteLine(recipe);
 
-            return new RecipeDto(){
+            return new RecipeDto()
+            {
                 Title = recipe.Title,
                 Description = recipe.Description,
                 Steps = recipe.Steps,
@@ -95,7 +116,8 @@ namespace API.Controllers
                 Likes = recipe.Likes,
                 Tags = recipe.Tags,
                 Comments = recipe.Comments,
-                User = new UserDto(){
+                User = new UserDto()
+                {
                     UserId = recipe.User.UserId,
                     Username = recipe.User.UserName,
                     UserRole = recipe.User.UserRole

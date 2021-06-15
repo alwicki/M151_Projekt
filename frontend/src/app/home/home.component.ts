@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-home',
@@ -6,8 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-recipes = [1, 2, 3, 4, 5, 6]
-  constructor() { }
+recipes: any;
+  constructor(public api: ApiService) { 
+    this.api.getRecipes().subscribe(res => this.recipes = res);
+  }
 
   ngOnInit(): void {
   }

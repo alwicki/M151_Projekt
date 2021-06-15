@@ -64,4 +64,8 @@ export class StartComponent implements OnInit {
         )
     }
   }
+
+  getToken(){
+    this.api.getToken().subscribe(res => console.log(res))
+  }
 }
