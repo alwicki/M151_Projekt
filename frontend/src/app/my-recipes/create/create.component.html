@@ -16,11 +16,11 @@
         class="form-control"
         id="description"
         name="description"
-        [(ngModel)]="recipe.description"
+         [value]="recipe.description"
+         (input)="changeDescription($event)"
         rows="3"
       ></textarea>
     </div>
-
     <h4>Tags</h4>
     <div class="mb-4">
 
@@ -151,5 +151,7 @@
 
 
   </form>
-  <button class="btn btn-outline-dark mt-4" (click)="createRecipe()">submit</button>
+  <button *ngIf="!update" class="btn btn-outline-dark mt-4" (click)="createRecipe()">submit</button>
+  <button *ngIf="update" class="btn btn-outline-dark mt-4" (click)="updateRecipe()">update</button>
+
 </div>

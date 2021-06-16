@@ -15,16 +15,22 @@ import { Step } from 'src/app/models/order';
 })
 export class CreateComponent implements OnInit {
 
-  recipe: Recipe = new Recipe('','',4,[],[],[],this.auth.currentUser)
+  recipe: Recipe = new Recipe(null, '','',4,[],[],[],this.auth.currentUser)
   selectedTag: any;
   tags: any;
   selectedUnit: any;
   units: any;
   ingredient: Ingredient = new Ingredient();
   step: Step = new Step();
+  update = false;
   constructor(public auth: AuthService, public api: ApiService) {
     this.api.getTags().subscribe(res => this.tags=res)
     this.api.getUnits().subscribe(res=> this.units=res)
+    console.log(history.state.data);
+    if(history.state.data){
+      this.recipe = history.state.data;
+      this.update = true;
+    }
    }
 
   ngOnInit(): void {
@@ -33,6 +39,11 @@ export class CreateComponent implements OnInit {
   createRecipe(){
     console.log(this.recipe);
     this.api.createRecipe(this.recipe).subscribe(res => console.log(res));
+  }
+
+  updateRecipe(){
+    console.log(this.recipe);
+    this.api.updateRecipe(this.recipe).subscribe(res => console.log(res));
   }
 
   addTag(){
@@ -95,5 +106,9 @@ export class CreateComponent implements OnInit {
 
   removeStep(description){
     this.recipe.steps = this.recipe.steps.filter(step => step.description != description);
+  }
+
+  changeDescription(event){
+    this.recipe.description = event.target.value;
   }
 }

@@ -34,6 +34,21 @@ namespace API.Controllers
             return await this.context.Recipes.ToListAsync();
         }
 
+
+        [HttpGet("user/{id}")]
+        public async Task<ActionResult<IEnumerable<Recipe>>> GetUserRecipes(int id)
+        {
+            return await this.context.Recipes.Where(r => r.User.UserId == id)
+            .Include(r => r.Ingredients)
+            .ThenInclude(r => r.Unit)
+            .Include(r => r.Steps)
+            .Include(r => r.Likes)
+            .Include(r => r.Comments)
+            .Include(r => r.User)
+            .Include(r => r.Tags)
+            .ToListAsync();
+        }
+
         [HttpGet("token")]
         [Authorize]
         public async Task<ActionResult<string>> GetToken()
@@ -48,13 +63,7 @@ namespace API.Controllers
             return userName;
         }
 
-
-        [HttpGet("user/{id}")]
-        public async Task<ActionResult<IEnumerable<Recipe>>> GetUserRecipes(int id)
-        {
-            return await this.context.Recipes.Where(r => r.User.UserId == id).Include(r => r.Tags).ToListAsync();
-        }
-
+        [Authorize]
         [HttpPost("create")]
         public async Task<ActionResult<int>> CreateRecipe(RecipeDto recipeDto)
         {
@@ -85,6 +94,51 @@ namespace API.Controllers
 
 
             this.context.Recipes.Add(recipe);
+            await this.context.SaveChangesAsync();
+
+            return recipe.RecipeId;
+        }
+
+        [HttpPost("update")]
+        public async Task<ActionResult<int>> Update(RecipeDto recipeDto)
+        {
+            var user = this.context.Users.Find(recipeDto.User.UserId);
+            var recipe = new Recipe();
+            // var recipe = await this.context.Recipes
+            // .Include(r => r.Ingredients)
+            // .ThenInclude(r => r.Unit)
+            // .Include(r => r.Steps)
+            // .Include(r => r.Likes)
+            // .Include(r => r.Comments)
+            // .Include(r => r.User)
+            // .Include(r => r.Tags)
+            // .FirstOrDefaultAsync(r => r.RecipeId == recipeDto.RecipeId);
+
+            // if(recipe != null)
+            // {
+                recipe.RecipeId = recipeDto.RecipeId;
+                recipe.Title = recipeDto.Title;
+                recipe.Description = recipeDto.Description;
+                recipe.Persons = recipeDto.Persons;
+                //recipe.Ingredients = recipeDto.Ingredients;
+                //recipe.Steps = recipeDto.Steps;
+                //recipe.Tags = recipeDto.Tags;
+                //recipe.User = user;
+            //};
+            // var tags = recipeDto.Tags;
+            // foreach (var tag in tags)
+            // {
+            //     var exTag = this.context.Tags.Single(t => t.TagId == tag.TagId);
+            //     recipe.Tags.Add(exTag);
+            // }
+            // var ingredients = recipeDto.Ingredients;
+            // foreach (var ingredient in ingredients)
+            // {
+            //     ingredient.Unit = this.context.Units.Single(u => u.UnitId == ingredient.Unit.UnitId);
+            // }
+            // recipe.Ingredients = ingredients;
+        
+            this.context.Recipes.Update(recipe);
             await this.context.SaveChangesAsync();
 
             return recipe.RecipeId;

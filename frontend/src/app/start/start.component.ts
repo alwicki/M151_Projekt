@@ -36,8 +36,8 @@ export class StartComponent implements OnInit {
         console.log(res)},
       (err)=> console.log('error'),
       ()=>{
-        this.auth.currentUser = user;
-        this.router.navigate(['recipes'])
+        this.auth.setUser(user);
+        this.router.navigate(['recipes']);
       }
       
       );

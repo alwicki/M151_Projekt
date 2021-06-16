@@ -21,6 +21,7 @@
           <button class="btn btn-outline-dark" type="submit">Search</button>
         </form>
         <img routerLink="start" class="d-none d-lg-block d-m-block" id="avatar" src="../assets/avatar-placeholder.png" style="cursor: pointer;">
+        <button *ngIf="loggedIn" (click)="logout()" class="btn btn-outline-dark">logout</button>
         <button routerLink="start" class="btn mt-2 d-lg-none btn-outline-dark">Login</button>
       </div>
     </div>

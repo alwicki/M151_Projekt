@@ -1,6 +1,6 @@
 export interface User{
-    UserId: number;
-    Username: string;
-    UserRole: number;
-    Token: string;
+    userId: number;
+    username: string;
+    userRole: number;
+    token: string;
 }

@@ -12,25 +12,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">Floursoup</th>
-              <td>Soup Vegetarian</td>
-              <td>4</td>
-              <td><a routerLink="/recipes/detail"><i class="bi bi-pencil-fill"></i></a></td>
-              <td><i class="bi bi-trash"></i></td>
-            </tr>
-            <tr>
-              <th scope="row">Chili Burger</th>
-              <td>Burger Meat Spicy</td>
-              <td>2</td>
-              <td><a routerLink="/recipes/detail"><i class="bi bi-pencil-fill"></i></a></td>
-              <td><i class="bi bi-trash"></i></td>
-            </tr>
-            <tr>
-              <th scope="row">Nasi Goreng</th>
-              <td>Noodles Asian</td>
-              <td>9</td>
-              <td><a routerLink="/recipes/detail"><i class="bi bi-pencil-fill"></i></a></td>
+            <tr *ngFor="let recipe of recipes">
+              <th scope="row">{{recipe.title}}</th>
+              <td><span *ngFor="let tag of recipe.tags">{{tag.title}} </span></td>
+              <td>{{recipe.likes.length}}</td>
+              <td><a (click)="editRecipe(recipe)"><i class="bi bi-pencil-fill"></i></a></td>
               <td><i class="bi bi-trash"></i></td>
             </tr>
           </tbody>

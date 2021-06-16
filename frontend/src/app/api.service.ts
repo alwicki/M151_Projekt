@@ -13,6 +13,10 @@ export class ApiService {
     return this.http.get('https://localhost:5001/api/recipes');
   }
 
+  getUserRecipes(id){
+    return this.http.get('https://localhost:5001/api/recipes/user/'+id);
+  }
+
   getToken(){
     return this.http.get('https://localhost:5001/api/recipes/token');
   }
@@ -35,6 +39,10 @@ export class ApiService {
 
   createRecipe(recipe){
     return this.http.post<number>('https://localhost:5001/api/recipes/create', recipe)
+  }
+
+  updateRecipe(recipe){
+    return this.http.post<number>('https://localhost:5001/api/recipes/update', recipe)
   }
 
   register(username: string, password: string){

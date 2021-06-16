@@ -5,6 +5,7 @@ namespace API.DTOs
 {
     public class RecipeDto
     {
+        public int RecipeId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public int Persons { get; set; }
