@@ -6,10 +6,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./detail.component.css']
 })
 export class DetailComponent implements OnInit {
-tags = ["soup", "flour"]
-  constructor() { }
+recipe;
+comment;
+  constructor() { 
+    if(history.state.data){
+      this.recipe = history.state.data;
+    }
+  }
 
   ngOnInit(): void {
   }
 
+  report(subject, id){
+    console.log('REPORT Subject',subject, 'Id',id);
+  }
+
+  createComment(){
+    console.log('COMMENT', this.comment)
+  }
 }

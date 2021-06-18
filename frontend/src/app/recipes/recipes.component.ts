@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-recipes',
@@ -6,12 +8,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./recipes.component.css']
 })
 export class RecipesComponent implements OnInit {
-  recipes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-  tags = ['vegetarian', 'soup', 'meat', 'lactose free']
+  recipes
+  tags
   showFilter = false;
-  constructor() { }
+  constructor( public api: ApiService, public router: Router) { }
 
   ngOnInit(): void {
+    this.api.getRecipes().subscribe(res => this.recipes = res);
+    this.api.getTags().subscribe(res => this.tags = res);
+  }
+
+  showDetail(recipe){
+    this.router.navigate(['recipes/detail'], {state: {data: recipe}})
   }
 
 }

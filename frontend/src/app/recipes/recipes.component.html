@@ -9,16 +9,16 @@
       <button class="btn btn-outline-dark">add</button>
     </div>
     <div id="tags" class="mt-4">
-<div *ngFor="let tag of tags" class="badge badge-pill alert-dark">{{tag}} test</div>
+<div *ngFor="let tag of tags" class="badge badge-pill alert-dark">{{tag.title}}</div>
 </div>
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-2">
 <div *ngFor="let recipe of recipes" class="col py-lg-2">
   <div class="card">
     <img class="card-img-top" src="../../assets/plate.jpeg" alt="Card image cap">
     <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      <a routerLink="/recipes/detail" class="btn btn-outline-dark">watch</a>
+      <h5 class="card-title">{{recipe.title}}</h5>
+      <p class="card-text">{{recipe.description}}</p>
+      <a (click)="showDetail(recipe)" class="btn btn-outline-dark">watch</a>
     </div>
   </div>
   </div>

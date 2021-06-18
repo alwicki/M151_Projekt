@@ -8,6 +8,7 @@ export class Recipe {
       public ingredients: any,
       public steps: any,
       public tags: any,
+      public comments: any,
       public user: any
     ) {  }
   

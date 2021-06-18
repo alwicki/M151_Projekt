@@ -36,7 +36,7 @@
     <div class="card-body">
       <h5 class="card-title">{{recipe.title}}</h5>
       <p class="card-text">{{recipe.description}}</p>
-      <a routerLink="recipes/detail" class="btn btn-outline-dark">watch</a>
+      <a (click)="showDetail(recipe)" class="btn btn-outline-dark">watch</a>
     </div>
   </div>
   </div>

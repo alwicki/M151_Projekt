@@ -1,54 +1,47 @@
 <div class="container recipeContainer mt-4">
   <div class="row row-cols-1 row-cols-md-3">
     <div class="col">
-      <h1>Floursoup <i class="bi bi-star"></i></h1>
+      <h1>recipe.title <i class="bi bi-star"></i></h1>
 
       <div>
-        <button class="btn btn-outline-dark" style="font-size: 10px">
+        <button (click)="report('recipe', recipe.recipeId)" class="btn btn-outline-dark" style="font-size: 10px">
           report
         </button>
       </div>
       <div id="tags" class="mt-4">
-        <div *ngFor="let tag of tags" class="badge badge-pill alert-dark">
-          {{ tag }}
+        <div *ngFor="let tag of recipe.tags" class="badge badge-pill alert-dark">
+          {{ tag.title }}
         </div>
       </div>
 
-      <h4>This is the recipe of the legendary basler flour soup</h4>
+      <h4>{{recipe.description}}</h4>
       <img src="../../../assets/plate.jpeg" alt="recipe_picture" />
     </div>
 
     <div class="col">
       <h3>Ingredients</h3>
-      <p>
-        5 tbspwhite flour<br />
-        50 gbutter<br />
-        1onion, finely chopped<br />
-        1 dlwhite wine<br />
-        1 litremeat bouillon<br />
-        ¼ tspnutmeg<br />
-        salt and pepper to taste<br />
+      <p *ngFor="let ingredient of recipe.ingredients">
+        {{ingredient.amount}} {{ingredient.unit.title}} {{ingredient.description}}<br />
       </p>
     </div>
 
     <div class="col">
       <h3>Cooking steps</h3>
-      <p>
-        1. Toast the flour in a pan over a medium heat, stirring constantly
-        until it turns hazelnut brown, remove, allow to cool slightly. <br />
-        2. Reduce the heat, warm the butter in the same pan. 3. Sauté the onion
-        for approx. 3 mins. <br />
-        4. Pour in the wine and reduce completely. <br />
-        5. Return the flour to the pan, pour in the stock, bring to the boil
-        while stirring with a whisk. <br />
-        6. Reduce the heat, simmer for approx. 1 hr. while stirring
-        occasionally, season.
+      <p *ngFor="let step of recipe.steps">
+        {{step.order}}. {{step.description}}
       </p>
     </div>
   </div>
   <div class="row">
     <h2>Comments</h2>
+    <form>
+      <textarea [(ngModel)]="comment">
+
+      </textarea>
+    </form>
+
     <div
+      *ngFor="let comment of recipe.comments"
       class="row justify-content-md-center pb-2 mb-4"
       style="border-bottom: 1px solid black"
     >
@@ -61,45 +54,15 @@
       </div>
       <div class="col">
         <p>
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-          sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-          rebum.
+        comment.description
         </p>
+        <p>comment.date</p>
       </div>
       <div class="col-md-auto">
         <i class="bi bi-hand-thumbs-up" style="font-size: 24px; cursor: pointer;"></i>
       </div>
       <div class="col-md-auto">
-        <button class="btn btn-outline-dark" style="font-size: 10px">
-          report
-        </button>
-      </div>
-    </div>
-    <div
-      class="row justify-content-md-center pb-2"
-      style="border-bottom: 1px solid black"
-    >
-      <div class="col-md-auto">
-        <img
-          src="../../../assets/avatar-placeholder.png"
-          alt="profilepicture"
-          style="width: 60px"
-        />
-      </div>
-      <div class="col">
-        <p>
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-          sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-          rebum.
-        </p>
-      </div>
-      <div class="col-md-auto">
-        <i class="bi bi-hand-thumbs-up" style="font-size: 24px; cursor: pointer;"></i>
-      </div>
-      <div class="col-md-auto">
-        <button class="btn btn-outline-dark" style="font-size: 10px">
+        <button (click)="report('comment', comment.commentId)" class="btn btn-outline-dark" style="font-size: 10px">
           report
         </button>
       </div>

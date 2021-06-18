@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
 
 @Component({
@@ -8,11 +9,15 @@ import { ApiService } from '../api.service';
 })
 export class HomeComponent implements OnInit {
 recipes: any;
-  constructor(public api: ApiService) { 
+  constructor(public api: ApiService, public router: Router) { 
     this.api.getRecipes().subscribe(res => this.recipes = res);
   }
 
   ngOnInit(): void {
   }
 
+
+  showDetail(recipe){
+    this.router.navigate(['recipes/detail'], {state: {data: recipe}})
+  }
 }
