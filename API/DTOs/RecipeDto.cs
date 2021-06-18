@@ -9,11 +9,11 @@ namespace API.DTOs
         public string Title { get; set; }
         public string Description { get; set; }
         public int Persons { get; set; }
-        public List<Ingredient> Ingredients { get; set; }
-        public List<Step> Steps {get; set;}
-        public List<Comment> Comments { get; set; }
+        public ICollection<Ingredient> Ingredients { get; set; }
+        public ICollection<Step> Steps {get; set;}
+        public ICollection<Comment> Comments { get; set; }
         public ICollection<Tag> Tags { get; set; } 
-        public List<Like> Likes { get; set; } 
+        public ICollection<Like> Likes { get; set; } 
         public UserDto User {get; set;}
     }
 }

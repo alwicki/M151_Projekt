@@ -15,7 +15,7 @@ import { Step } from 'src/app/models/order';
 })
 export class CreateComponent implements OnInit {
 
-  recipe: Recipe = new Recipe(null, '','',4,[],[],[],this.auth.currentUser)
+  recipe: Recipe = new Recipe(0, '','',4,[],[],[],this.auth.currentUserValue)
   selectedTag: any;
   tags: any;
   selectedUnit: any;
@@ -37,7 +37,7 @@ export class CreateComponent implements OnInit {
   }
 
   createRecipe(){
-    console.log(this.recipe);
+    console.table(this.recipe);
     this.api.createRecipe(this.recipe).subscribe(res => console.log(res));
   }
 

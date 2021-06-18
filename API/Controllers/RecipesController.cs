@@ -59,15 +59,13 @@ namespace API.Controllers
             var handler = new JwtSecurityTokenHandler();
             var token = handler.ReadJwtToken(accessToken);
             var claims = token.Claims;
-            var userName = claims.First(c => c.Type =="UserName").Value;
+            var userName = claims.First(c => c.Type == "UserName").Value;
             return userName;
         }
 
-        [Authorize]
         [HttpPost("create")]
         public async Task<ActionResult<int>> CreateRecipe(RecipeDto recipeDto)
         {
-            var test = recipeDto;
             var user = this.context.Users.Find(recipeDto.User.UserId);
             var recipe = new Recipe
             {
@@ -102,43 +100,54 @@ namespace API.Controllers
         [HttpPost("update")]
         public async Task<ActionResult<int>> Update(RecipeDto recipeDto)
         {
-            var user = this.context.Users.Find(recipeDto.User.UserId);
-            var recipe = new Recipe();
-            // var recipe = await this.context.Recipes
-            // .Include(r => r.Ingredients)
-            // .ThenInclude(r => r.Unit)
-            // .Include(r => r.Steps)
-            // .Include(r => r.Likes)
-            // .Include(r => r.Comments)
-            // .Include(r => r.User)
-            // .Include(r => r.Tags)
-            // .FirstOrDefaultAsync(r => r.RecipeId == recipeDto.RecipeId);
 
-            // if(recipe != null)
-            // {
-                recipe.RecipeId = recipeDto.RecipeId;
-                recipe.Title = recipeDto.Title;
-                recipe.Description = recipeDto.Description;
-                recipe.Persons = recipeDto.Persons;
-                //recipe.Ingredients = recipeDto.Ingredients;
-                //recipe.Steps = recipeDto.Steps;
-                //recipe.Tags = recipeDto.Tags;
-                //recipe.User = user;
-            //};
-            // var tags = recipeDto.Tags;
-            // foreach (var tag in tags)
-            // {
-            //     var exTag = this.context.Tags.Single(t => t.TagId == tag.TagId);
-            //     recipe.Tags.Add(exTag);
-            // }
-            // var ingredients = recipeDto.Ingredients;
-            // foreach (var ingredient in ingredients)
-            // {
-            //     ingredient.Unit = this.context.Units.Single(u => u.UnitId == ingredient.Unit.UnitId);
-            // }
-            // recipe.Ingredients = ingredients;
-        
-            this.context.Recipes.Update(recipe);
+            var recipe = this.context.Recipes
+            .Include(r => r.Tags)
+            .Include(r => r.Steps)
+            .Include(r => r.Ingredients)
+            .SingleOrDefault(r => r.RecipeId == recipeDto.RecipeId);
+
+            if (recipe != null)
+            {
+                foreach (var tag in recipe.Tags)
+
+                    recipe.Tags.Remove(tag);
+                //this.context.SaveChanges();
+
+                foreach (var ingredient in recipe.Ingredients)
+                    recipe.Ingredients.Remove(ingredient);
+
+                foreach (var step in recipe.Steps)
+                    recipe.Steps.Remove(step);
+            }
+
+            var tags = recipeDto.Tags;
+            foreach (var tag in tags)
+            {
+                var exTag = this.context.Tags.Single(t => t.TagId == tag.TagId);
+                recipe.Tags.Add(exTag);
+            }
+
+            var steps = recipeDto.Steps;
+            foreach (var step in steps)
+            {
+                step.StepId = 0;
+                recipe.Steps.Add(step);
+            }
+
+            foreach (var ingredient in recipeDto.Ingredients)
+            {
+                ingredient.IngredientId = 0;
+                ingredient.Unit = this.context.Units.Single(u => u.UnitId == ingredient.Unit.UnitId);
+                recipe.Ingredients.Add(ingredient);
+            }
+
+            recipe.RecipeId = recipeDto.RecipeId;
+            recipe.Title = recipeDto.Title;
+            recipe.Description = recipeDto.Description;
+            recipe.Persons = recipeDto.Persons;
+
+            this.context.Update(recipe);
             await this.context.SaveChangesAsync();
 
             return recipe.RecipeId;
