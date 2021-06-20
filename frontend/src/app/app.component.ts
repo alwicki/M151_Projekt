@@ -11,12 +11,14 @@ export class AppComponent{
   title = 'RecipeBook';
   recipes: any;
   loggedIn: boolean = false;
+  moderator: boolean = false;
 
   constructor(private api: ApiService, public auth: AuthService){
     this.api.getRecipes().subscribe(res => this.recipes = res);
     this.auth.currentUser.subscribe(res => {
       if(res){
         this.loggedIn = true;
+        if(res.userRole==1)this.moderator =true;
       }
   })
 }

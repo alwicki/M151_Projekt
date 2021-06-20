@@ -31,7 +31,13 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Recipe>>> GetRecipes()
         {
-            return await this.context.Recipes.ToListAsync();
+            return await this.context.Recipes.Include(r => r.Ingredients)
+            .ThenInclude(r => r.Unit)
+            .Include(r => r.Steps)
+            .Include(r => r.Likes)
+            .Include(r => r.Comments)
+            .Include(r => r.User)
+            .Include(r => r.Tags).ToListAsync();
         }
 
 

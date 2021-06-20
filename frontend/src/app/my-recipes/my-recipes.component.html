@@ -1,6 +1,7 @@
 <div class="container tableContainer mt-4">
   <button routerLink="/myrecipes/create" class="btn btn-outline-dark mb-4 mt-4">New Recipe</button>
-<div class="table-responsive">
+  <h4 *ngIf="recipes.length == 0">You don't have any recipes. Click on the button above to create one</h4>
+<div *ngIf="recipes.length > 0" class="table-responsive">
     <table class="table">
         <thead>
             <tr>

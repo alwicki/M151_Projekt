@@ -2,7 +2,7 @@
     <div class="container">
       <a class="navbar-brand" href=""><img id="logo" src="../assets/logo.svg" alt=""></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon"><i style="font-size:2rem;" class="bi bi-list"></i></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -15,6 +15,9 @@
           <li [routerLinkActive]="['active']" class="nav-item">
             <a class="nav-link" routerLink="favorites">Favorites</a>
           </li>
+          <li *ngIf="moderator" [routerLinkActive]="['active']" class="nav-item">
+            <a class="nav-link" routerLink="moderator">Moderator</a>
+          </li>
         </ul>
         <form class="d-flex">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -22,7 +25,7 @@
         </form>
         <img routerLink="start" class="d-none d-lg-block d-m-block" id="avatar" src="../assets/avatar-placeholder.png" style="cursor: pointer;">
         <button *ngIf="loggedIn" (click)="logout()" class="btn btn-outline-dark">logout</button>
-        <button routerLink="start" class="btn mt-2 d-lg-none btn-outline-dark">Login</button>
+        <button *ngIf="!loggedIn" routerLink="start" class="btn mt-2 d-lg-none btn-outline-dark">Login</button>
       </div>
     </div>
   </nav>

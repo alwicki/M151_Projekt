@@ -11,6 +11,7 @@ comment;
   constructor() { 
     if(history.state.data){
       this.recipe = history.state.data;
+      console.log(this.recipe);
     }
   }
 

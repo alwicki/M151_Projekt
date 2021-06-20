@@ -1,0 +1,56 @@
+[
+    {
+        "Title": "Beef Carpaccio",
+        "Description": "Beef capaccio is an Italian dish centered around raw beef. Yes, that's right, it's raw!",
+        "Persons": 4,
+        "Ingredients": [
+            {
+                "Description": "beef tenderloin",
+                "Amount": 0.3,
+                "Unit": {
+                    "Title": "lb"
+                }
+            },
+            {
+                "Description": "arugula",
+                "Amount": 1,
+                "Unit": {
+                    "Title": "handful"
+                }
+            },
+            {
+                "Description": "red wine vinegar",
+                "Amount": 2,
+                "Unit": {
+                    "Title": "tsp"
+                }
+            },
+            {
+                "Description": "olive oil",
+                "Amount": 4,
+                "Unit": {
+                    "Title": "tsp"
+                }
+            }
+        ],
+        "Steps": [
+            {
+                "Order": 1,
+                "Description": "Freeze beef tenderloin until very firm but not rock solid, about 1-2 hours."
+            },
+            {
+                "Order": 2,
+                "Description": "Once the beef is firm, slice very thinly against the grain and place slices on chilled plates."
+            },
+            {
+                "Order": 3,
+                "Description": "Top each servin with a handful arugula. Drizzle vinegar and olive oil."
+            }
+        ],
+        "Tags": [
+            {"Title": "Italian"},
+            {"Title": "Beef"}
+        ],
+        "UserId": 1
+    }
+]

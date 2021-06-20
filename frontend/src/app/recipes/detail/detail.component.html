@@ -34,11 +34,15 @@
   </div>
   <div class="row">
     <h2>Comments</h2>
+    <div class="col col-12">
     <form>
-      <textarea [(ngModel)]="comment">
+      <textarea [(ngModel)]="comment"
+      name="comment">
 
       </textarea>
     </form>
+    <button type="submit" class="btn btn-outline-dark">Add comment</button>
+  </div>
 
     <div
       *ngFor="let comment of recipe.comments"
