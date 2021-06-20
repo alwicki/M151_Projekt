@@ -26,3 +26,12 @@ ng serve;
 ```
 
 visit localhost:4200
+
+## Login
+### User 
+Username: dantep
+Password: 12345
+
+### Moderator
+Username: lutz
+Password: 12345
