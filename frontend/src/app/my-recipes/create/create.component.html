@@ -1,6 +1,22 @@
 <div class="container formContainer mt-4 p-4">
   <form>
     <div class="mb-4">
+      <label for="title" class="form-label"><h4>Image</h4></label>
+      <input
+        type="file"
+        class="form-control"
+        id="image"
+        name="image"
+        (change)="image($event)"
+        accept="*"
+      />
+    </div>
+    <div class="row mb-4">
+    <div class="col col-lg-6">
+    <img style="max-width: 100%;" src={{recipeImg}} alt="">
+  </div>
+  </div>
+    <div class="mb-4">
       <label for="title" class="form-label"><h4>Title</h4></label>
       <input
         type="text"

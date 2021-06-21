@@ -9,6 +9,7 @@ namespace API.DTOs
         public string Title { get; set; }
         public string Description { get; set; }
         public int Persons { get; set; }
+        public string Image {get; set; }
         public ICollection<Ingredient> Ingredients { get; set; }
         public ICollection<Step> Steps {get; set;}
         public ICollection<Comment> Comments { get; set; }

@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { IImage } from './models/image';
 
 @Injectable({
   providedIn: 'root'
@@ -57,5 +58,11 @@ export class ApiService {
       'Content-Type': 'application/json',
     });
     return this.http.post('https://localhost:5001/api/users/login', {'username': username, 'password': password}, {headers: headers})
+  }
+
+  uploadRecipeImage(file: File){
+    const formData = new FormData();
+    formData.append('recipeImage', file);
+    return this.http.post<IImage>('https://localhost:5001/api/recipes/image', formData);
   }
 }

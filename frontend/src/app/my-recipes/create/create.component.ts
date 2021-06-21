@@ -7,6 +7,8 @@ import { Tag } from 'src/app/models/tag';
 import { Ingredient } from 'src/app/models/ingredient';
 import { Unit } from 'src/app/models/unit';
 import { Step } from 'src/app/models/order';
+import { IImage } from 'src/app/models/image';
+import { read } from '@popperjs/core';
 
 @Component({
   selector: 'app-create',
@@ -15,25 +17,55 @@ import { Step } from 'src/app/models/order';
 })
 export class CreateComponent implements OnInit {
 
-  recipe: Recipe = new Recipe(0, '','',4,[],[],[],[],this.auth.currentUserValue)
+  recipe: Recipe = new Recipe(0, '','',4,null,[],[],[],[],this.auth.currentUserValue)
   selectedTag: any;
   tags: any;
   selectedUnit: any;
   units: any;
+  fileBlob: any;
   ingredient: Ingredient = new Ingredient();
   step: Step = new Step();
   update = false;
+  recipeImg;
   constructor(public auth: AuthService, public api: ApiService) {
     this.api.getTags().subscribe(res => this.tags=res)
     this.api.getUnits().subscribe(res=> this.units=res)
     console.log(history.state.data);
     if(history.state.data){
       this.recipe = history.state.data;
+      this.recipeImg = "https://localhost:5001/uploads/"+this.recipe.image;
       this.update = true;
     }
    }
 
   ngOnInit(): void {
+  }
+
+  changeFile(file){
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    })
+  }
+
+  image(event){
+      const file = event.target.files[0];
+      const type = file.type;
+      console.log(type);
+      this.changeFile(file).then((base64: string): any => {
+        console.log(base64);
+        this.api.uploadRecipeImage(file).subscribe(res => {
+          this.recipe.image=res.image;
+          this.recipeImg = "https://localhost:5001/uploads/"+res.image
+          console.log(res);          
+          ;});
+      });
+  }
+
+  b64Blob(b64, type){
+    return new Blob([b64], {type: type})
   }
 
   createRecipe(){

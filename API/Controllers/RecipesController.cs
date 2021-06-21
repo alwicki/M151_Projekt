@@ -15,6 +15,7 @@ using System;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Http;
 
 namespace API.Controllers
 {
@@ -78,6 +79,7 @@ namespace API.Controllers
                 Title = recipeDto.Title,
                 Description = recipeDto.Description,
                 Persons = recipeDto.Persons,
+                Image = recipeDto.Image,
                 Ingredients = new List<Ingredient>(),
                 Steps = recipeDto.Steps,
                 Tags = new List<Tag>(),
@@ -101,6 +103,31 @@ namespace API.Controllers
             await this.context.SaveChangesAsync();
 
             return recipe.RecipeId;
+        }
+
+        [HttpPost("image")]
+        public async Task<ActionResult<ImageDto>> UploadFileAsync([FromForm] IFormFile recipeImage){
+            Console.Write(recipeImage);
+            var totalSize = recipeImage.Length;
+            var fileBytes = new byte[recipeImage.Length];
+            using (var fileStream = recipeImage.OpenReadStream()){
+                var offset = 0;
+                while(offset < recipeImage.Length)
+                {
+                    var chunkSize = totalSize - offset < 8192 ? (int) totalSize - offset : 8192;
+
+                    offset += await fileStream.ReadAsync(fileBytes, offset, chunkSize);
+                }
+            }
+            var randomString = Guid.NewGuid().ToString("n").Substring(0,8);
+            var fileName = randomString+recipeImage.FileName;
+            FileStream fs = new FileStream("uploads/"+fileName, FileMode.Create, FileAccess.ReadWrite);
+            BinaryWriter bw = new BinaryWriter(fs);
+            bw.Write(fileBytes);
+            bw.Close();
+            return new ImageDto(){
+                Image = fileName
+            };
         }
 
         [HttpPost("update")]
@@ -152,6 +179,7 @@ namespace API.Controllers
             recipe.Title = recipeDto.Title;
             recipe.Description = recipeDto.Description;
             recipe.Persons = recipeDto.Persons;
+            recipe.Image = recipeDto.Image;
 
             this.context.Update(recipe);
             await this.context.SaveChangesAsync();
