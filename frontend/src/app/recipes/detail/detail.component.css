@@ -6,6 +6,14 @@
     margin-top: 2rem;
 }
 
+.bi-star-fill{
+    margin-left: 1rem;
+    cursor:pointer;
+}
+
+.bi-star-fill:hover{
+    color: #FFFC43;
+}
 .clist{
     border-bottom: 1px dashed black;
 }
@@ -29,6 +37,7 @@
 
 #iTitle, #sTitle{
     margin-bottom: 2rem;
+    padding: 0rem 0.2em;
 }
 
 

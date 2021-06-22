@@ -12,3 +12,12 @@
     border-top: none;
     background-color: white;
 }
+
+#welcomeText{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    border-top: 4px solid #32FF76;
+    border-bottom: 4px solid #FF8776;
+}

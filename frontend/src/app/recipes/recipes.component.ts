@@ -20,6 +20,9 @@ export class RecipesComponent implements OnInit {
 
 
   recipeSrc(image){
+    if(image==null){
+      return "/assets/plate.svg"
+    }
     return "https://localhost:5001/uploads/"+image
   }
   
