@@ -26,7 +26,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Unit>>> GetRecipes()
+        public async Task<ActionResult<IEnumerable<Unit>>> GetUnits()
         {
             return await this.context.Units.ToListAsync();
         }

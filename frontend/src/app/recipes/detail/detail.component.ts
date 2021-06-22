@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Ingredient } from 'src/app/models/ingredient';
+import { Comment } from 'src/app/models/comment'
+import { ApiService } from 'src/app/api.service';
 
 @Component({
   selector: 'app-detail',
@@ -8,10 +10,11 @@ import { Ingredient } from 'src/app/models/ingredient';
 })
 export class DetailComponent implements OnInit {
 recipe;
-comment;
+commentText;
 persons;
 oldPersons;
-  constructor() { 
+showCommentForm =false;
+  constructor(public api: ApiService) { 
     if(history.state.data){
       this.recipe = history.state.data;
       console.log(this.recipe);
@@ -35,7 +38,9 @@ oldPersons;
   }
 
   createComment(){
-    console.log('COMMENT', this.comment)
+    let comment = new Comment(null, this.commentText, null, null, null, this.recipe.recipeId);
+    console.log('COMMENT', comment)
+    this.api.createComment(comment).subscribe(res => this.recipe.comments.push(res));
   }
 
   calcIngredients(){
@@ -44,4 +49,5 @@ oldPersons;
     });
     this.oldPersons=this.persons
   }
+
 }

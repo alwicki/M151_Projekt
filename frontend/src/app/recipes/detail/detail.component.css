@@ -40,6 +40,11 @@
     padding: 0rem 0.2em;
 }
 
+.row{
+    margin-left: 0;
+    margin-right: 0;
+}
+
 
 #iTitle span{
     background-color: #32FF76;

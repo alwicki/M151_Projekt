@@ -64,12 +64,12 @@
     </div>
   </div>
   <div class="row">
-    <h2 class="title">Comments</h2>
-    <div class="col col-12">
+    <h2 class="title">Comments <i style="cursor: pointer;" (click)="(showCommentForm?showCommentForm=false:showCommentForm=true)" class="bi bi-plus-square"></i></h2>
+    <div *ngIf="showCommentForm" class="col col-12 mb-4">
       <form>
-        <textarea id="comment" [(ngModel)]="comment" name="comment"> </textarea>
+        <textarea id="comment" [(ngModel)]="commentText" name="comment"> </textarea>
       </form>
-      <button type="submit" class="btn btn-outline-dark">Add comment</button>
+      <button (click)="createComment()" type="submit" class="btn btn-outline-dark">Add comment</button>
     </div>
 
     <div
@@ -80,14 +80,14 @@
       <div class="col-md-auto">
         <img
           id="recipeImg"
-          src="../../../assets/avatar-placeholder.png"
+          src="../../../assets/avatar-placeholder.svg"
           alt="profilepicture"
           style="width: 60px"
         />
       </div>
       <div class="col">
-        <p>comment.description</p>
-        <p>comment.date</p>
+        <p>{{comment.description}}</p>
+        <p style="font-size: small; font-weight: 700;">{{comment.userName}}, {{comment.date}}</p>
       </div>
       <div class="col-md-auto">
         <i
