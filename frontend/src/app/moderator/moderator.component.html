@@ -1,7 +1,42 @@
-<div class="container mt-4">
+<div *ngIf="reports.length<1" class="container mt-4">
 <div class="card">
     <div class="card-body">
         <h1>There are no open reports at the moment :(</h1>
     </div>
   </div>
 </div>
+
+<div *ngIf="reports.length>0" class="container tableContainer mt-4">
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+              <th scope="col">Reporting User</th>
+              <th scope="col">Penalty Points</th>
+              <th scope="col">Reported User</th>
+              <th scope="col">Penalty Points</th>
+              <th scope="col">Topic</th>
+              <th scope="col">Show</th>
+              <th scope="col">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let report of reports">
+              <td>{{report.reportingUserName}}</td>
+              <td>{{report.reportingUserPenalty}}</td>
+              <td>{{report.reportedUserName}}</td>
+              <td>{{report.reportedUserPenalty}}</td>
+              <td>{{report.targetTopic}}</td>
+
+              <td><a (click)="showData(report.targetTopic, report.targetId)" style="cursor: pointer;"><i class="bi bi-search"></i></a></td>
+              <td><i style="cursor: pointer;" class="bi bi-trash"></i></td>
+            </tr>
+          </tbody>
+    </table>
+  </div>
+  <div *ngIf="data">
+    <img *ngIf="data.image" style="max-width: 300px;" src={{recipeSrc(data.image)}}>
+    <ngx-json-viewer [json]="data"></ngx-json-viewer>
+  </div>
+</div>
+

@@ -5,7 +5,7 @@
 
       <div>
         <button
-          (click)="report('recipe', recipe.recipeId)"
+          (click)="report('recipe', recipe.recipeId, recipe.user.userId)"
           class="btn btn-outline-dark"
           style="font-size: 10px"
         >
@@ -97,7 +97,7 @@
       </div>
       <div class="col-md-auto">
         <button
-          (click)="report('comment', comment.commentId)"
+          (click)="report('comment', comment.commentId, comment.userId)"
           class="btn btn-outline-dark"
           style="font-size: 10px"
         >

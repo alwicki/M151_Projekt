@@ -15,6 +15,7 @@ import { CreateComponent } from './my-recipes/create/create.component';
 import { ModeratorComponent } from './moderator/moderator.component';
 import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
 import { OrderModule } from 'ngx-order-pipe';
+import { NgxJsonViewerModule } from 'ngx-json-viewer';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +35,8 @@ import { OrderModule } from 'ngx-order-pipe';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
-    OrderModule
+    OrderModule,
+    NgxJsonViewerModule
   ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },

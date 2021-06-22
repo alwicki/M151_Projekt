@@ -33,8 +33,14 @@ showCommentForm =false;
     return "https://localhost:5001/uploads/"+image
   }
 
-  report(subject, id){
-    console.log('REPORT Subject',subject, 'Id',id);
+  report(topic, id, user){
+    console.log('REPORT TargetTopic',topic, 'TargetId',id, 'ReportedUser', user);
+    let report={
+      'targetTOpic': topic,
+      'targetId': id,
+      'reportedUser': user
+    }
+    this.api.report(report).subscribe(res=>console.log(res));
   }
 
   createComment(){

@@ -27,6 +27,22 @@ export class ApiService {
     return this.http.get('https://localhost:5001/api/recipes', {headers: headers});
   }
 
+  getRecipe(id){
+    var headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.token}`,
+    });
+    return this.http.get('https://localhost:5001/api/recipes/'+id, {headers: headers});
+  }
+
+  getComment(id){
+    var headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.token}`,
+    });
+    return this.http.get('https://localhost:5001/api/comments/'+id, {headers: headers});
+  }
+
   getUserRecipes(id){
     var headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -67,6 +83,14 @@ export class ApiService {
     return this.http.get('https://localhost:5001/api/units');
   }
 
+  getReports(){
+    var headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.token}`,
+    });
+    return this.http.get('https://localhost:5001/api/reports');
+  }
+
   createUnit(title: string){
     var headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -91,6 +115,13 @@ export class ApiService {
     return this.http.post<Comment>('https://localhost:5001/api/comments/create', comment, {headers: headers})
   }
 
+  report(report){
+    var headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.token}`,
+    });
+    return this.http.post('https://localhost:5001/api/reports/create', report, {headers: headers})
+  }
 
   updateRecipe(recipe){
     var headers = new HttpHeaders({

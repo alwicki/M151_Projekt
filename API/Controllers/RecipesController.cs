@@ -145,7 +145,6 @@ namespace API.Controllers
                 foreach (var tag in recipe.Tags)
 
                     recipe.Tags.Remove(tag);
-                //this.context.SaveChanges();
 
                 foreach (var ingredient in recipe.Ingredients)
                     recipe.Ingredients.Remove(ingredient);
@@ -190,8 +189,6 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<RecipeDto>> GetRecipe(int id)
         {
-            //var user = this.context.Recipes.Include(u=>u.User).First(r => r.Id == id).User;
-
             var recipe = await this.context.Recipes
             .Include(r => r.Ingredients)
             .ThenInclude(r => r.Unit)
@@ -208,6 +205,7 @@ namespace API.Controllers
             {
                 Title = recipe.Title,
                 Description = recipe.Description,
+                Image = recipe.Image,
                 Steps = recipe.Steps,
                 Ingredients = recipe.Ingredients,
                 Likes = recipe.Likes,

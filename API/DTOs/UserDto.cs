@@ -8,5 +8,7 @@ namespace API.DTOs
         public string Username { get; set; }
         public EUserRole UserRole { get; set; }
         public string Token { get; set; }
+
+        public int PenaltyPoints {get; set;}
     }
 }

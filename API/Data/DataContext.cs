@@ -15,6 +15,8 @@ namespace API.Data
         public DbSet<Like> Likes {get; set;}
         public DbSet<Tag> Tags {get; set;}
 
+        public DbSet<Report> Reports {get; set;}
+
         protected override void OnModelCreating(ModelBuilder modelBuilder){
             modelBuilder.Entity<User>()
             .HasMany(u => u.Favorites)

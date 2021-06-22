@@ -30,14 +30,14 @@ namespace API.Controllers
         [HttpPost("create")]
         public async Task<ActionResult<Comment>> CreateComment(CommentDto commentDto)
         {
-                        var accessToken = await
-            HttpContext.GetTokenAsync("access_token");
+            var accessToken = await
+HttpContext.GetTokenAsync("access_token");
 
             var handler = new JwtSecurityTokenHandler();
             var token = handler.ReadJwtToken(accessToken);
             var claims = token.Claims;
             var userName = claims.First(c => c.Type == "UserName").Value;
-            var userId = claims.First(c => c.Type =="UserId").Value;
+            var userId = claims.First(c => c.Type == "UserId").Value;
             var comment = new Comment
             {
                 Description = commentDto.Description,
@@ -45,7 +45,7 @@ namespace API.Controllers
                 Date = DateTime.Now,
                 UserId = Convert.ToInt32(userId),
                 UserName = userName
-                
+
             };
             this.context.Comments.Add(comment);
             await this.context.SaveChangesAsync();
@@ -53,5 +53,15 @@ namespace API.Controllers
             return comment;
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CommentDto>> GetComment(int id)
+        {
+            var comment = await this.context.Comments
+                        .FirstOrDefaultAsync(c => c.CommentId == id);
+            return new CommentDto()
+            {
+                Description = comment.Description
+            };
+        }
     }
 }
