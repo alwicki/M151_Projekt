@@ -14,6 +14,7 @@ import { MyRecipesComponent } from './my-recipes/my-recipes.component';
 import { CreateComponent } from './my-recipes/create/create.component';
 import { ModeratorComponent } from './moderator/moderator.component';
 import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
+import { OrderModule } from 'ngx-order-pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +33,8 @@ import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
     HttpClientModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    OrderModule
   ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },

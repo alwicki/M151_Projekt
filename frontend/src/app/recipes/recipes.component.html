@@ -1,26 +1,45 @@
-
-
 <div class="container mt-4">
-    <div id="filters" class="row">
-    <span (click)="showFilter=true"><i id="filter" class="bi bi-filter-circle" style="font-size: 24px; cursor: pointer; font-style: normal;"> add filter</i></span>
-    </div>
-    <div class="row p-4" style="max-width: 400px;" *ngIf="showFilter">
-      <input type="text">
-      <button class="btn btn-outline-dark">add</button>
-    </div>
-    <div id="tags" class="mt-4">
-<div *ngFor="let tag of tags" class="badge badge-pill alert-dark">{{tag.title}}</div>
-</div>
-<div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-2">
-<div *ngFor="let recipe of recipes" class="col py-lg-2">
-  <div class="card">
-    <img class="card-img-top" src="../../assets/plate.jpeg" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">{{recipe.title}}</h5>
-      <p class="card-text">{{recipe.description}}</p>
-      <a (click)="showDetail(recipe)" class="btn btn-outline-dark">watch</a>
+  <div id="filters" class="row">
+    <span (click)="showFilter ? (showFilter = false) : (showFilter = true)"
+      ><i
+        id="filter"
+        class="bi bi-filter-circle"
+        style="font-size: 24px; cursor: pointer; font-style: normal"
+      >
+        add filter</i
+      ></span
+    >
+  </div>
+  <div
+    id="filterRow"
+    class="row p-4"
+    style="max-width: 400px"
+    *ngIf="showFilter"
+  >
+    <input type="text" />
+    <button class="btn btn-outline-dark">add</button>
+  </div>
+  <div id="tags" class="mt-4">
+    <div *ngFor="let tag of tags" class="badge badge-pill alert-dark">
+      {{ tag.title }}
     </div>
   </div>
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-2">
+    <div *ngFor="let recipe of recipes" class="col py-lg-2">
+      <div class="card">
+        <img
+          class="card-img-top"
+          src="{{ recipeSrc(recipe.image) }}"
+          alt="Card image cap"
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{ recipe.title }}</h5>
+          <p class="card-text">{{ recipe.description }}</p>
+        </div>
+        <div class="card-footer">
+          <a (click)="showDetail(recipe)" class="btn btn-outline-dark">watch</a>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
 </div>

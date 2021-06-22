@@ -1,48 +1,76 @@
-<div class="container recipeContainer mt-4">
-  <div class="row row-cols-1 row-cols-md-3">
-    <div class="col">
-      <h1>recipe.title <i class="bi bi-star"></i></h1>
+<div class="container recipeContainer pb-4 mt-4">
+  <div id="recipeRow" class="row row-cols-1 row-cols-md-3">
+    <div class="col col-lg-4">
+      <h3 class="title">{{ recipe.title }}<i class="bi bi-star"></i></h3>
 
       <div>
-        <button (click)="report('recipe', recipe.recipeId)" class="btn btn-outline-dark" style="font-size: 10px">
+        <button
+          (click)="report('recipe', recipe.recipeId)"
+          class="btn btn-outline-dark"
+          style="font-size: 10px"
+        >
           report
         </button>
       </div>
       <div id="tags" class="mt-4">
-        <div *ngFor="let tag of recipe.tags" class="badge badge-pill alert-dark">
+        <div
+          *ngFor="let tag of recipe.tags"
+          class="badge badge-pill alert-dark"
+        >
           {{ tag.title }}
         </div>
       </div>
 
-      <h4>{{recipe.description}}</h4>
-      <img src="../../../assets/plate.jpeg" alt="recipe_picture" />
+      <h4 class="description">{{ recipe.description }}</h4>
+
+      <img
+        class="mb-2"
+        style="width: 100%"
+        src="{{ recipeSrc(recipe.image) }}"
+        alt="recipe_picture"
+      />
     </div>
 
-    <div class="col">
-      <h3>Ingredients</h3>
-      <p *ngFor="let ingredient of recipe.ingredients">
-        {{ingredient.amount}} {{ingredient.unit.title}} {{ingredient.description}}<br />
+    <div id="ingredients" class="col col-lg-3">
+      <h3 id="iTitle" class="title"><span>Ingredients</span></h3>
+      <div class="mb-4">
+        <span for="persons" class="form-label">Persons</span>
+        <input
+          style="width: 68px; margin-left: 12px"
+          type="number"
+          id="persons"
+          name="persons"
+          min="1"
+          max="99"
+          [(ngModel)]="persons"
+          (change)="calcIngredients()"
+        />
+      </div>
+      <p class="clist" *ngFor="let ingredient of recipe.ingredients">
+        {{
+          ingredient.amount.toString().length > 1
+            ? ingredient.amount.toPrecision(2)
+            : ingredient.amount
+        }}
+        {{ ingredient.unit.title }} {{ ingredient.description }}<br />
       </p>
     </div>
 
-    <div class="col">
-      <h3>Cooking steps</h3>
-      <p *ngFor="let step of recipe.steps">
-        {{step.order}}. {{step.description}}
+    <div class="col col-lg-5">
+      <h3 id="sTitle" class="title"><span>Cooking steps</span></h3>
+      <p class="clist" *ngFor="let step of recipe.steps | orderBy: 'order'">
+        <span class="order">{{ step.order }}. </span>{{ step.description }}
       </p>
     </div>
   </div>
   <div class="row">
-    <h2>Comments</h2>
+    <h2 class="title">Comments</h2>
     <div class="col col-12">
-    <form>
-      <textarea [(ngModel)]="comment"
-      name="comment">
-
-      </textarea>
-    </form>
-    <button type="submit" class="btn btn-outline-dark">Add comment</button>
-  </div>
+      <form>
+        <textarea id="comment" [(ngModel)]="comment" name="comment"> </textarea>
+      </form>
+      <button type="submit" class="btn btn-outline-dark">Add comment</button>
+    </div>
 
     <div
       *ngFor="let comment of recipe.comments"
@@ -51,22 +79,28 @@
     >
       <div class="col-md-auto">
         <img
+          id="recipeImg"
           src="../../../assets/avatar-placeholder.png"
           alt="profilepicture"
           style="width: 60px"
         />
       </div>
       <div class="col">
-        <p>
-        comment.description
-        </p>
+        <p>comment.description</p>
         <p>comment.date</p>
       </div>
       <div class="col-md-auto">
-        <i class="bi bi-hand-thumbs-up" style="font-size: 24px; cursor: pointer;"></i>
+        <i
+          class="bi bi-hand-thumbs-up"
+          style="font-size: 24px; cursor: pointer"
+        ></i>
       </div>
       <div class="col-md-auto">
-        <button (click)="report('comment', comment.commentId)" class="btn btn-outline-dark" style="font-size: 10px">
+        <button
+          (click)="report('comment', comment.commentId)"
+          class="btn btn-outline-dark"
+          style="font-size: 10px"
+        >
           report
         </button>
       </div>

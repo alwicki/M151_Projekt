@@ -3,6 +3,7 @@
         "Title": "Beef Carpaccio",
         "Description": "Beef capaccio is an Italian dish centered around raw beef. Yes, that's right, it's raw!",
         "Persons": 4,
+        "Image": "beefcap.jpg",
         "Ingredients": [
             {
                 "Description": "beef tenderloin",

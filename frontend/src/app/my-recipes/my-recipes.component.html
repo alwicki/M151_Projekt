@@ -17,8 +17,8 @@
               <th scope="row">{{recipe.title}}</th>
               <td><span *ngFor="let tag of recipe.tags">{{tag.title}} </span></td>
               <td>{{recipe.likes.length}}</td>
-              <td><a (click)="editRecipe(recipe)"><i class="bi bi-pencil-fill"></i></a></td>
-              <td><i class="bi bi-trash"></i></td>
+              <td><a (click)="editRecipe(recipe)" style="cursor: pointer;"><i class="bi bi-pencil-fill"></i></a></td>
+              <td><i style="cursor: pointer;" class="bi bi-trash"></i></td>
             </tr>
           </tbody>
     </table>

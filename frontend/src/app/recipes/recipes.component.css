@@ -1,6 +1,21 @@
-#filter{
-    background: white;
-    padding: 1rem;
-    border: 1px solid black;
-    border-radius: 1rem;
+#filter {
+  background: white;
+  padding: 1rem;
+  border: 1px solid black;
+  border-radius: 1rem;
+}
+
+.card {
+  height: 100%;
+}
+
+.card-footer {
+  border-top: none;
+  background-color: white;
+}
+
+#filterRow {
+  background: white;
+  border: solid black 2px;
+  border-radius: 0.5rem;
 }

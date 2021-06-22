@@ -55,3 +55,12 @@ body {
     border: 0.1rem solid black !important;
     border-radius: 0.25rem !important;
 }
+
+.card-text{
+    font-weight: 300;
+}
+
+.card-img-top{
+    height: 225px;
+object-fit: cover;
+}

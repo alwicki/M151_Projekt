@@ -18,6 +18,11 @@ export class RecipesComponent implements OnInit {
     this.api.getTags().subscribe(res => this.tags = res);
   }
 
+
+  recipeSrc(image){
+    return "https://localhost:5001/uploads/"+image
+  }
+  
   showDetail(recipe){
     this.router.navigate(['recipes/detail'], {state: {data: recipe}})
   }

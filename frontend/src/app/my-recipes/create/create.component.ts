@@ -133,11 +133,18 @@ export class CreateComponent implements OnInit {
     if(step.description == null || step.description == '') return;
     step.order = this.recipe.steps.length+1;
     this.recipe.steps.push(step);
+    this.recipe.steps.sort((a,b)=> (a.order > b.order) ? 1 : -1)
+    console.log(this.recipe.steps);
     this.step = new Step();
   }
 
   removeStep(description){
     this.recipe.steps = this.recipe.steps.filter(step => step.description != description);
+    let order = 1;
+    this.recipe.steps.forEach(step => {
+      step.order = order;
+      order +=1;
+    });
   }
 
   changeDescription(event){

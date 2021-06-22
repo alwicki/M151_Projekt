@@ -65,6 +65,18 @@
       </div>
     </div>
 
+    <div class="mb-4">
+      <label for="persons" class="form-label"><h4>Persons</h4></label>
+      <input
+      style="width: 68px;"
+        type="number"
+        class="form-control"
+        id="persons"
+        name="persons"
+        [(ngModel)]="recipe.persons"
+      />
+    </div>
+
     <h4>Ingredients</h4>
     <div class="row mb-4">
     <div class="col-12 col-md-2">
@@ -153,7 +165,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr *ngFor="let step of recipe.steps">
+                        <tr *ngFor="let step of recipe.steps | orderBy: 'order'">
                           <th>{{ step.order }}</th>
                           <td>{{ step.description }}</td>
                           <td><i (click)="removeStep(step.description)" style="cursor: pointer;" class="bi bi-trash"></i></td>

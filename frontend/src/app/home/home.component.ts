@@ -16,6 +16,9 @@ recipes: any;
   ngOnInit(): void {
   }
 
+  recipeSrc(image){
+    return "https://localhost:5001/uploads/"+image
+  }
 
   showDetail(recipe){
     this.router.navigate(['recipes/detail'], {state: {data: recipe}})

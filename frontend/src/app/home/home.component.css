@@ -3,3 +3,12 @@
     border-radius: 1rem;
     padding: 1rem;
 }
+
+.card{
+    height: 100%;
+}
+
+.card-footer{
+    border-top: none;
+    background-color: white;
+}

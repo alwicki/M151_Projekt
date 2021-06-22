@@ -1,0 +1,52 @@
+#recipeRow{
+    border-bottom: 1px solid black;
+}
+
+.title{
+    margin-top: 2rem;
+}
+
+.clist{
+    border-bottom: 1px dashed black;
+}
+
+#comment{
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 0.5rem;
+    resize: none;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.description{
+    font-weight: 300;
+}
+
+.order{
+    font-weight: 600;
+}
+
+#iTitle, #sTitle{
+    margin-bottom: 2rem;
+}
+
+
+#iTitle span{
+    background-color: #32FF76;
+}
+
+#sTitle span{
+    background-color: #FF8776;
+}
+
+#recipeImg{
+    margin-bottom: 1rem;
+}
+
+@media (min-width: 768px){
+    #ingredients{
+        border-left: 1px solid #32FF76;
+        border-right: 1px solid #FF8776;
+    }
+}

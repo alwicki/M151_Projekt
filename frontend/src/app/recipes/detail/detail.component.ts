@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Ingredient } from 'src/app/models/ingredient';
 
 @Component({
   selector: 'app-detail',
@@ -8,14 +9,22 @@ import { Component, OnInit } from '@angular/core';
 export class DetailComponent implements OnInit {
 recipe;
 comment;
+persons;
+oldPersons;
   constructor() { 
     if(history.state.data){
       this.recipe = history.state.data;
       console.log(this.recipe);
+      this.persons = this.recipe.persons;
+      this.oldPersons = this.recipe.persons;
     }
   }
 
   ngOnInit(): void {
+  }
+
+  recipeSrc(image){
+    return "https://localhost:5001/uploads/"+image
   }
 
   report(subject, id){
@@ -24,5 +33,12 @@ comment;
 
   createComment(){
     console.log('COMMENT', this.comment)
+  }
+
+  calcIngredients(){
+    this.recipe.ingredients.forEach(ingredient => {
+      ingredient.amount=(ingredient.amount/this.oldPersons)*this.persons;
+    });
+    this.oldPersons=this.persons
   }
 }
